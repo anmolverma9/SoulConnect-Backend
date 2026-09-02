@@ -33,6 +33,7 @@
                     <tr>
                         <th>User</th>
                         <th>Email</th>
+                        <th>Location & Role</th>
                         <th>Status</th>
                         <th>Wallet Balance</th>
                         <th>VIP Tier</th>
@@ -44,13 +45,24 @@
                     @forelse($users as $u)
                         @php
                             $displayName = $u->name ?? ($u->profile?->name ?? explode('@', $u->email)[0]);
+                            $city = $u->profile?->city;
+                            $country = $u->profile?->country;
+                            $occupation = $u->profile?->occupation;
+                            $gender = $u->profile?->gender ? ucfirst($u->profile->gender) : null;
                         @endphp
                         <tr>
                             <td>
                                 <strong>{{ $displayName }}</strong>
+                                @if($gender)
+                                    <span style="font-size: 11px; color: var(--text-muted);">({{ $gender }})</span>
+                                @endif
                                 <br><span style="font-size: 11px; color: var(--text-muted);">ID: #{{ $u->id }}</span>
                             </td>
                             <td>{{ $u->email }}</td>
+                            <td>
+                                <div style="font-weight: 500; font-size: 13px;">{{ $city ?: 'Not set' }}{{ $country ? ', ' . $country : '' }}</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">{{ $occupation ?: 'No occupation' }}</div>
+                            </td>
                             <td><span class="badge badge-{{ $u->status }}">{{ ucfirst($u->status) }}</span></td>
                             <td><strong>{{ $u->wallet?->balance ?? 0 }}</strong> <i class="fa-solid fa-coins" style="color: var(--warning); font-size: 12px;"></i></td>
                             <td>
@@ -80,7 +92,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">No users found matching your criteria.</td>
+                            <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 25px;">No users found matching your criteria.</td>
                         </tr>
                     @endforelse
                 </tbody>
