@@ -76,12 +76,13 @@ class BotEngagementSeeder extends Seeder
                 ['balance' => 500]
             );
 
-            // Dummy primary photo
+            // Primary profile photo
             ProfilePhoto::updateOrCreate(
                 ['user_id' => $user->id, 'is_primary' => true],
                 [
-                    'file_path' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80',
-                    'is_approved' => true,
+                    'path' => 'photos/bot_avatar_' . ($index + 1) . '.jpg',
+                    'url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80',
+                    'status' => 'approved',
                     'sort_order' => 1
                 ]
             );

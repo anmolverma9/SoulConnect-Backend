@@ -77,14 +77,35 @@ class EngagementService
             $now = Carbon::now();
 
             foreach ($botUsers as $index => $bot) {
-                // Check if conversation already exists
-                $conversation = Conversation::firstOrCreate([
-                    'user_one_id' => min($bot->id, $newUser->id),
-                    'user_two_id' => max($bot->id, $newUser->id),
-                ], [
-                    'type' => 'direct',
-                    'last_message_at' => $now->copy()->subMinutes(rand(1, 20)),
-                ]);
+                // Check if conversation already exists between this bot and user
+                $existingConvId = \App\Models\ConversationParticipant::where('user_id', $newUser->id)
+                    ->whereIn('conversation_id', function ($query) use ($bot) {
+                        $query->select('conversation_id')
+                            ->from('conversation_participants')
+                            ->where('user_id', $bot->id);
+                    })
+                    ->value('conversation_id');
+
+                if ($existingConvId) {
+                    $conversation = Conversation::find($existingConvId);
+                } else {
+                    $conversation = Conversation::create([
+                        'type' => 'direct',
+                        'last_message_at' => $now->copy()->subMinutes(rand(1, 20)),
+                    ]);
+
+                    \App\Models\ConversationParticipant::create([
+                        'conversation_id' => $conversation->id,
+                        'user_id' => $newUser->id,
+                        'role' => 'member',
+                    ]);
+
+                    \App\Models\ConversationParticipant::create([
+                        'conversation_id' => $conversation->id,
+                        'user_id' => $bot->id,
+                        'role' => 'member',
+                    ]);
+                }
 
                 // Determine message count for this bot (1 to 3 messages)
                 $messageCount = rand(1, 3);
@@ -100,22 +121,25 @@ class EngagementService
                 }
 
                 $messageTime = $now->copy()->subMinutes(rand(5, 30));
+                $lastMsgId = null;
 
                 foreach ($messagesToSend as $stepIndex => $body) {
                     $messageTime = $messageTime->copy()->addSeconds(rand(15, 60));
 
-                    Message::create([
+                    $msg = Message::create([
                         'conversation_id' => $conversation->id,
                         'sender_id' => $bot->id,
                         'type' => 'text',
                         'body' => $body,
-                        'is_read' => false,
+                        'status' => 'sent',
                         'created_at' => $messageTime,
                         'updated_at' => $messageTime,
                     ]);
+                    $lastMsgId = $msg->id;
                 }
 
                 $conversation->update([
+                    'last_message_id' => $lastMsgId,
                     'last_message_at' => $messageTime,
                 ]);
             }
