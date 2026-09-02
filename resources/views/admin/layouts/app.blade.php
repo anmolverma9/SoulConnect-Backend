@@ -478,73 +478,76 @@
         }
         .alert-success { background: var(--success-light); color: var(--success); border: 1px solid var(--success); }
         /* Complete Pagination Styling */
-        .pagination-container, .pagination {
+        .custom-pagination {
             display: flex;
-            padding: 16px 20px;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: var(--bg-surface);
             border-top: 1px solid var(--border-color);
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;
+        }
+
+        .pagination-info {
             font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
-        nav[role="navigation"] {
-            display: flex;
+        .pagination-info .highlight {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .pagination-pages {
+            display: inline-flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        nav[role="navigation"] svg {
-            width: 14px !important;
-            height: 14px !important;
-            max-width: 14px !important;
-            max-height: 14px !important;
-            display: inline-block !important;
-            vertical-align: middle;
-        }
-
-        nav[role="navigation"] > div:first-child {
-            display: none; /* Hide default raw Tailwind text */
-        }
-
-        nav[role="navigation"] span, 
-        nav[role="navigation"] a {
-            display: inline-flex !important;
+        .page-btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 6px 12px !important;
-            border-radius: 8px !important;
-            border: 1px solid var(--border-color) !important;
-            background: var(--bg-surface) !important;
-            color: var(--text-primary) !important;
-            text-decoration: none !important;
-            font-size: 12.5px !important;
-            font-weight: 500 !important;
-            min-height: 32px;
-            box-shadow: none !important;
+            gap: 6px;
+            min-width: 36px;
+            height: 36px;
+            padding: 0 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
         }
 
-        nav[role="navigation"] span[aria-current="page"] > span,
-        nav[role="navigation"] span[aria-current="page"],
-        nav[role="navigation"] .active span {
-            background: var(--primary) !important;
-            color: #ffffff !important;
-            border-color: var(--primary) !important;
-            font-weight: 700 !important;
+        .page-btn:hover:not(.disabled):not(.active) {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-1px);
         }
 
-        nav[role="navigation"] a:hover {
-            background: var(--primary-light) !important;
-            color: var(--primary) !important;
-            border-color: var(--primary) !important;
+        .page-btn.active {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.35);
+            cursor: default;
         }
 
-        nav[role="navigation"] span[aria-disabled="true"] {
-            opacity: 0.45;
+        .page-btn.disabled {
+            color: var(--text-muted);
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            opacity: 0.6;
             cursor: not-allowed;
+            box-shadow: none;
         }
     </style>
 </head>

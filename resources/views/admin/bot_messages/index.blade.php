@@ -107,12 +107,7 @@
             </tbody>
         </table>
     </div>
-    @if($messages->hasPages())
-    <div class="pagination">
-        <div>Showing {{ $messages->firstItem() }} to {{ $messages->lastItem() }} of {{ $messages->total() }} templates</div>
-        <div>{{ $messages->appends(request()->query())->links() }}</div>
-    </div>
-    @endif
+    {{ $messages->appends(request()->query())->links('admin.layouts.pagination') }}
 </div>
 
 <!-- Modal: Add Message Template -->

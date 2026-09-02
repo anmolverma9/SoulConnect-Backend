@@ -46,23 +46,6 @@
             </table>
         </div>
 
-        @if($subscriptions->hasPages())
-            <div class="pagination">
-                <span style="font-size: 13px; color: var(--text-secondary);">Showing {{ $subscriptions->firstItem() }} to {{ $subscriptions->lastItem() }} of {{ $subscriptions->total() }} records</span>
-                <div>
-                    @if($subscriptions->onFirstPage())
-                        <button class="btn btn-secondary btn-sm" disabled>Previous</button>
-                    @else
-                        <a href="{{ $subscriptions->previousPageUrl() }}" class="btn btn-secondary btn-sm">Previous</a>
-                    @endif
-
-                    @if($subscriptions->hasMorePages())
-                        <a href="{{ $subscriptions->nextPageUrl() }}" class="btn btn-secondary btn-sm">Next</a>
-                    @else
-                        <button class="btn btn-secondary btn-sm" disabled>Next</button>
-                    @endif
-                </div>
-            </div>
-        @endif
+        {{ $subscriptions->appends(request()->query())->links('admin.layouts.pagination') }}
     </div>
 @endsection

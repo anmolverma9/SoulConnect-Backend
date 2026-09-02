@@ -66,24 +66,7 @@
             </table>
         </div>
 
-        @if($reports->hasPages())
-            <div class="pagination">
-                <span style="font-size: 13px; color: var(--text-secondary);">Showing {{ $reports->firstItem() }} to {{ $reports->lastItem() }} of {{ $reports->total() }} reports</span>
-                <div>
-                    @if($reports->onFirstPage())
-                        <button class="btn btn-secondary btn-sm" disabled>Previous</button>
-                    @else
-                        <a href="{{ $reports->previousPageUrl() }}" class="btn btn-secondary btn-sm">Previous</a>
-                    @endif
-
-                    @if($reports->hasMorePages())
-                        <a href="{{ $reports->nextPageUrl() }}" class="btn btn-secondary btn-sm">Next</a>
-                    @else
-                        <button class="btn btn-secondary btn-sm" disabled>Next</button>
-                    @endif
-                </div>
-            </div>
-        @endif
+        {{ $reports->appends(request()->query())->links('admin.layouts.pagination') }}
     </div>
 @endsection
 

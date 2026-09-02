@@ -74,11 +74,6 @@
             </tbody>
         </table>
     </div>
-    @if($conversations->hasPages())
-    <div class="pagination">
-        <div>Showing {{ $conversations->firstItem() }} to {{ $conversations->lastItem() }} of {{ $conversations->total() }} conversations</div>
-        <div>{{ $conversations->links() }}</div>
-    </div>
-    @endif
+    {{ $conversations->links('admin.layouts.pagination') }}
 </div>
 @endsection

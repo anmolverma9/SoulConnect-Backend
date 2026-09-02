@@ -99,24 +99,7 @@
             </table>
         </div>
 
-        @if($users->hasPages())
-            <div class="pagination">
-                <span style="font-size: 13px; color: var(--text-secondary);">Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} users</span>
-                <div>
-                    @if($users->onFirstPage())
-                        <button class="btn btn-secondary btn-sm" disabled>Previous</button>
-                    @else
-                        <a href="{{ $users->previousPageUrl() }}" class="btn btn-secondary btn-sm">Previous</a>
-                    @endif
-
-                    @if($users->hasMorePages())
-                        <a href="{{ $users->nextPageUrl() }}" class="btn btn-secondary btn-sm">Next</a>
-                    @else
-                        <button class="btn btn-secondary btn-sm" disabled>Next</button>
-                    @endif
-                </div>
-            </div>
-        @endif
+        {{ $users->appends(request()->query())->links('admin.layouts.pagination') }}
     </div>
 @endsection
 
