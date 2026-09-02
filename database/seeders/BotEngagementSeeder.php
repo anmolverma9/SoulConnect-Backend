@@ -19,26 +19,26 @@ class BotEngagementSeeder extends Seeder
     public function run(): void
     {
         $botProfiles = [
-            ['name' => 'Aaradhya Sharma', 'age' => 23, 'city' => 'Delhi NCR', 'occupation' => 'Fashion Designer', 'bio' => 'Coffee, late night drives & exploring aesthetics in Hauz Khas ☕🚗 Let\'s connect!'],
-            ['name' => 'Riya Sen', 'age' => 22, 'city' => 'Mumbai', 'occupation' => 'Model & Creator', 'bio' => 'Bandra cafes, Marine drive breeze & spicy conversations ✨ Say hi!'],
-            ['name' => 'Khushi Kapoor', 'age' => 24, 'city' => 'Bangalore', 'occupation' => 'Software Engineer', 'bio' => 'Tech by day, party & deep talks by night 🎧 Tell me your wildest story!'],
-            ['name' => 'Simran Kaur', 'age' => 23, 'city' => 'Chandigarh', 'occupation' => 'Fitness Influencer', 'bio' => 'Gedi route, gym & bold vibes only 🔥 Are you ready to handle me?'],
-            ['name' => 'Tanya Singhal', 'age' => 22, 'city' => 'Pune', 'occupation' => 'Content Creator', 'bio' => 'Spontaneous road trips & late night cravings 🍕 Let\'s see where this goes!'],
-            ['name' => 'Ishani Mukherjee', 'age' => 24, 'city' => 'Kolkata', 'occupation' => 'Stylist', 'bio' => 'Vintage music, chai & unfiltered late-night chats 🌙'],
-            ['name' => 'Shruti Agarwal', 'age' => 23, 'city' => 'Jaipur', 'occupation' => 'Interior Designer', 'bio' => 'Sweet on the outside, a little wild on the inside 🙈✨'],
-            ['name' => 'Radhika Joshi', 'age' => 25, 'city' => 'Ahmedabad', 'occupation' => 'Architect', 'bio' => 'Passionate about design, espresso & confident men ☕💋'],
-            ['name' => 'Sonam Chawla', 'age' => 24, 'city' => 'Gurgaon', 'occupation' => 'Marketing Lead', 'bio' => 'Cyberhub nights, good wine & bold connections 🍷✨'],
-            ['name' => 'Natasha Deshmukh', 'age' => 23, 'city' => 'Mumbai', 'occupation' => 'Dance Instructor', 'bio' => 'Salsa dancer 💃 Looking for someone who knows how to keep up!'],
-            ['name' => 'Kritika Nair', 'age' => 22, 'city' => 'Kochi', 'occupation' => 'Photographer', 'bio' => 'Monsoon rains, beach vibes & private video calls 🌧️📹'],
-            ['name' => 'Payal Kashyap', 'age' => 24, 'city' => 'Lucknow', 'occupation' => 'Journalist', 'bio' => 'Nawabi charm, shayari & late night secrets 🌙'],
-            ['name' => 'Mehak Gill', 'age' => 23, 'city' => 'Amritsar', 'occupation' => 'Dentist', 'bio' => 'Cute smile, dangerous eyes 😉 Let\'s talk!'],
-            ['name' => 'Kashish Malhotra', 'age' => 22, 'city' => 'Noida', 'occupation' => 'Graphic Artist', 'bio' => 'Don\'t be boring! Tell me your biggest guilty pleasure 🙈🔥'],
-            ['name' => 'Sanjana Reddy', 'age' => 24, 'city' => 'Hyderabad', 'occupation' => 'Data Scientist', 'bio' => 'Biryani, high heels & deep late-night chemistry 🥂'],
-            ['name' => 'Avani Patel', 'age' => 23, 'city' => 'Surat', 'occupation' => 'Event Planner', 'bio' => 'Living life on the edge. Looking for a partner in crime 😈'],
-            ['name' => 'Divya Saxena', 'age' => 25, 'city' => 'Bhopal', 'occupation' => 'Lawyer', 'bio' => 'Sharp mind, softer heart. Win me over if you can ✨'],
-            ['name' => 'Muskaan Bhatia', 'age' => 22, 'city' => 'Delhi NCR', 'occupation' => 'Makeup Artist', 'bio' => 'Glamour, late night ice cream & fun vibes 🍨💋'],
-            ['name' => 'Shilpa Rao', 'age' => 24, 'city' => 'Bangalore', 'occupation' => 'Brand Strategist', 'bio' => 'I love men who take the lead.. text me first! 😉'],
-            ['name' => 'Jasleen Sandhu', 'age' => 23, 'city' => 'Mohali', 'occupation' => 'Radio Host', 'bio' => 'Voice that will keep you up all night 🎧 Call me?']
+            ['name' => 'Aaradhya Sharma', 'age' => 23, 'city' => 'Delhi NCR', 'occupation' => 'Fashion Designer', 'bio' => 'Coffee, late night drives & exploring Hauz Khas ☕🚗 Let\'s connect!', 'photo' => 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Riya Sen', 'age' => 22, 'city' => 'Mumbai', 'occupation' => 'Model & Creator', 'bio' => 'Bandra cafes, Marine drive breeze & spicy conversations ✨ Say hi!', 'photo' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Khushi Kapoor', 'age' => 24, 'city' => 'Bangalore', 'occupation' => 'Software Engineer', 'bio' => 'Tech by day, party & deep talks by night 🎧 Tell me your wildest story!', 'photo' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Simran Kaur', 'age' => 23, 'city' => 'Chandigarh', 'occupation' => 'Fitness Influencer', 'bio' => 'Gedi route, gym & bold vibes only 🔥 Are you ready to handle me?', 'photo' => 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Tanya Singhal', 'age' => 22, 'city' => 'Pune', 'occupation' => 'Content Creator', 'bio' => 'Spontaneous road trips & late night cravings 🍕 Let\'s see where this goes!', 'photo' => 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Ishani Mukherjee', 'age' => 24, 'city' => 'Kolkata', 'occupation' => 'Stylist', 'bio' => 'Vintage music, chai & unfiltered late-night chats 🌙', 'photo' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Shruti Agarwal', 'age' => 23, 'city' => 'Jaipur', 'occupation' => 'Interior Designer', 'bio' => 'Sweet on the outside, a little wild on the inside 🙈✨', 'photo' => 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Radhika Joshi', 'age' => 25, 'city' => 'Ahmedabad', 'occupation' => 'Architect', 'bio' => 'Passionate about design, espresso & confident men ☕💋', 'photo' => 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Sonam Chawla', 'age' => 24, 'city' => 'Gurgaon', 'occupation' => 'Marketing Lead', 'bio' => 'Cyberhub nights, good wine & bold connections 🍷✨', 'photo' => 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Natasha Deshmukh', 'age' => 23, 'city' => 'Mumbai', 'occupation' => 'Dance Instructor', 'bio' => 'Salsa dancer 💃 Looking for someone who knows how to keep up!', 'photo' => 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Kritika Nair', 'age' => 22, 'city' => 'Kochi', 'occupation' => 'Photographer', 'bio' => 'Monsoon rains, beach vibes & private video calls 🌧️📹', 'photo' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Payal Kashyap', 'age' => 24, 'city' => 'Lucknow', 'occupation' => 'Journalist', 'bio' => 'Nawabi charm, shayari & late night secrets 🌙', 'photo' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Mehak Gill', 'age' => 23, 'city' => 'Amritsar', 'occupation' => 'Dentist', 'bio' => 'Cute smile, dangerous eyes 😉 Let\'s talk!', 'photo' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Kashish Malhotra', 'age' => 22, 'city' => 'Noida', 'occupation' => 'Graphic Artist', 'bio' => 'Don\'t be boring! Tell me your biggest guilty pleasure 🙈🔥', 'photo' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Sanjana Reddy', 'age' => 24, 'city' => 'Hyderabad', 'occupation' => 'Data Scientist', 'bio' => 'Biryani, high heels & deep late-night chemistry 🥂', 'photo' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Avani Patel', 'age' => 23, 'city' => 'Surat', 'occupation' => 'Event Planner', 'bio' => 'Living life on the edge. Looking for a partner in crime 😈', 'photo' => 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Divya Saxena', 'age' => 25, 'city' => 'Bhopal', 'occupation' => 'Lawyer', 'bio' => 'Sharp mind, softer heart. Win me over if you can ✨', 'photo' => 'https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Muskaan Bhatia', 'age' => 22, 'city' => 'Delhi NCR', 'occupation' => 'Makeup Artist', 'bio' => 'Glamour, late night ice cream & fun vibes 🍨💋', 'photo' => 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Shilpa Rao', 'age' => 24, 'city' => 'Bangalore', 'occupation' => 'Brand Strategist', 'bio' => 'I love men who take the lead.. text me first! 😉', 'photo' => 'https://images.unsplash.com/photo-1548142813-c348350df52b?w=800&auto=format&fit=crop&q=80'],
+            ['name' => 'Jasleen Sandhu', 'age' => 23, 'city' => 'Mohali', 'occupation' => 'Radio Host', 'bio' => 'Voice that will keep you up all night 🎧 Call me?', 'photo' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80']
         ];
 
         foreach ($botProfiles as $index => $data) {
@@ -76,12 +76,12 @@ class BotEngagementSeeder extends Seeder
                 ['balance' => 500]
             );
 
-            // Primary profile photo
+            // Primary profile photo with unique photo URL
             ProfilePhoto::updateOrCreate(
                 ['user_id' => $user->id, 'is_primary' => true],
                 [
                     'path' => 'photos/bot_avatar_' . ($index + 1) . '.jpg',
-                    'url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80',
+                    'url' => $data['photo'],
                     'status' => 'approved',
                     'sort_order' => 1
                 ]

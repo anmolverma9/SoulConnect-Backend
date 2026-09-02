@@ -66,4 +66,16 @@ class ConversationController extends Controller
 
         return ApiResponse::success(['read_count' => $count], 'Messages marked as read.');
     }
+
+    /**
+     * Engage current user with realistic Indian bot conversations in database
+     */
+    public function engageMe(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        \Illuminate\Support\Facades\Artisan::call('bots:engage-users', ['user_id' => $user->id]);
+
+        $conversations = $this->chatService->getUserConversations($user, 20);
+        return ApiResponse::paginated(ConversationResource::collection($conversations));
+    }
 }

@@ -144,6 +144,7 @@ Route::prefix('v1')->group(function () {
         // Chat & Conversations
         Route::get('conversations', [ConversationController::class, 'index']);
         Route::post('conversations', [ConversationController::class, 'store']);
+        Route::post('conversations/engage-me', [ConversationController::class, 'engageMe']);
         Route::get('conversations/{conversation}', [ConversationController::class, 'show']);
         Route::get('conversations/{conversation}/messages', [MessageController::class, 'index']);
         Route::post('conversations/{conversation}/messages', [MessageController::class, 'store']);

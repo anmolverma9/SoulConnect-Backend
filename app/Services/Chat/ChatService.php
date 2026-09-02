@@ -135,8 +135,29 @@ class ChatService
             // Real-time broadcast
             event(new MessageSentEvent($message, $sender));
 
-            // Send push notification to receiver
-            if ($otherParticipant && $otherParticipant->user) {
+            // Automated Bot Reply if receiver is a bot
+            if ($otherParticipant && $otherParticipant->user && $otherParticipant->user->is_bot) {
+                $canned = \App\Models\BotCannedMessage::where('is_active', true)
+                    ->inRandomOrder()
+                    ->first();
+                $botBody = $canned ? $canned->body : "Haha you're so fun to talk to! Tell me more 😊✨";
+
+                $botMessage = Message::create([
+                    'conversation_id' => $conversation->id,
+                    'sender_id' => $otherParticipant->user_id,
+                    'type' => 'text',
+                    'body' => $botBody,
+                    'status' => 'sent',
+                ]);
+
+                $conversation->update([
+                    'last_message_id' => $botMessage->id,
+                    'last_message_at' => Carbon::now()->addSecond(),
+                ]);
+            }
+
+            // Send push notification to receiver if real user
+            if ($otherParticipant && $otherParticipant->user && ! $otherParticipant->user->is_bot) {
                 $otherParticipant->user->notify(new MessageNotification($message, $sender));
             }
 
