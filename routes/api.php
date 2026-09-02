@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\CoinPackageController;
 use App\Http\Controllers\Api\V1\ConversationController;
 use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\DiscoveryController;
+use App\Http\Controllers\Api\V1\FollowController;
 use App\Http\Controllers\Api\V1\GiftController;
 use App\Http\Controllers\Api\V1\LikeController;
 use App\Http\Controllers\Api\V1\MatchController;
@@ -126,6 +127,14 @@ Route::prefix('v1')->group(function () {
         Route::post('profiles/{user}/pass', [LikeController::class, 'pass']);
         Route::post('profiles/{user}/super-like', [LikeController::class, 'superLike']);
         Route::get('likes', [LikeController::class, 'getLikes']);
+
+        // Follow / Following System
+        Route::post('users/{user}/follow', [FollowController::class, 'follow']);
+        Route::post('users/{user}/unfollow', [FollowController::class, 'unfollow']);
+        Route::post('users/{user}/toggle-follow', [FollowController::class, 'toggle']);
+        Route::get('users/{user}/followers', [FollowController::class, 'followers']);
+        Route::get('users/{user}/following', [FollowController::class, 'following']);
+        Route::get('me/follow-stats', [FollowController::class, 'myStats']);
 
         // Matches
         Route::get('matches', [MatchController::class, 'index']);

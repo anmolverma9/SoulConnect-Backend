@@ -127,6 +127,28 @@ class User extends Authenticatable
         return $this->hasMany(NotificationModel::class, 'user_id')->latest();
     }
 
+    public function followers(): HasMany
+    {
+        return $this->hasMany(UserFollow::class, 'following_id');
+    }
+
+    public function following(): HasMany
+    {
+        return $this->hasMany(UserFollow::class, 'follower_id');
+    }
+
+    public function isFollowedBy(User|int $user): bool
+    {
+        $userId = $user instanceof User ? $user->id : $user;
+        return $this->followers()->where('follower_id', $userId)->exists();
+    }
+
+    public function isFollowingUser(User|int $user): bool
+    {
+        $userId = $user instanceof User ? $user->id : $user;
+        return $this->following()->where('following_id', $userId)->exists();
+    }
+
     public function isActive(): bool
     {
         return $this->status === 'active';

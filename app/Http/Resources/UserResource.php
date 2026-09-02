@@ -23,6 +23,9 @@ class UserResource extends JsonResource
             'wallet' => new WalletResource($this->whenLoaded('wallet')),
             'active_subscription' => new SubscriptionResource($this->whenLoaded('activeSubscription')),
             'active_boost' => new BoostResource($this->whenLoaded('activeBoost')),
+            'followers_count' => $this->followers()->count(),
+            'following_count' => $this->following()->count(),
+            'is_following' => $request->user() ? $this->isFollowedBy($request->user()) : false,
             'created_at' => $this->created_at?->toIso8601String(),
         ];
     }
