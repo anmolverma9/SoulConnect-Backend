@@ -28,11 +28,10 @@ class OtpEmailNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Your Login Verification Code - '.config('app.name'))
-            ->greeting('Hello!')
-            ->line('Use the following 6-digit one-time code to sign in to your account:')
-            ->line("**{$this->otp}**")
-            ->line("This verification code is valid for {$this->expiryMinutes} minutes.")
-            ->line('If you did not request this login code, you can safely ignore this email.');
+            ->subject("Your Soul Connect Verification Code: {$this->otp}")
+            ->view('emails.otp', [
+                'otp' => $this->otp,
+                'expiryMinutes' => $this->expiryMinutes,
+            ]);
     }
 }
