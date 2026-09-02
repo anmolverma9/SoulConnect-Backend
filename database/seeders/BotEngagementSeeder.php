@@ -60,7 +60,7 @@ class BotEngagementSeeder extends Seeder
                 ['user_id' => $user->id],
                 [
                     'name' => $data['name'],
-                    'age' => $data['age'],
+                    'date_of_birth' => Carbon::now()->subYears($data['age'])->subMonths(rand(1, 10))->toDateString(),
                     'gender' => 'female',
                     'city' => $data['city'],
                     'country' => 'India',
