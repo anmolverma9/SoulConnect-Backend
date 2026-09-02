@@ -19,26 +19,26 @@ class BotEngagementSeeder extends Seeder
     public function run(): void
     {
         $botProfiles = [
-            ['name' => 'Ananya Sharma', 'age' => 23, 'city' => 'Mumbai', 'occupation' => 'UI/UX Designer', 'bio' => 'Coffee, beaches & exploring new cafes in Bandra ☕🌊 Let\'s connect!'],
-            ['name' => 'Priya Patel', 'age' => 24, 'city' => 'Delhi NCR', 'occupation' => 'Architect', 'bio' => 'Architecture enthusiast & foodie. Looking for someone genuine ✨'],
-            ['name' => 'Sneha Verma', 'age' => 22, 'city' => 'Bangalore', 'occupation' => 'Software Engineer', 'bio' => 'Tech by day, music festivals by night 🎧 Tell me your favorite song!'],
-            ['name' => 'Riya Sen', 'age' => 25, 'city' => 'Kolkata', 'occupation' => 'Fashion Stylist', 'bio' => 'Living life in aesthetics and colors 🎨 Let\'s see where this goes!'],
-            ['name' => 'Pooja Nair', 'age' => 23, 'city' => 'Pune', 'occupation' => 'Content Creator', 'bio' => 'Lover of spontaneous road trips & golden hour sunsets 🌅🚗'],
-            ['name' => 'Tanvi Joshi', 'age' => 24, 'city' => 'Jaipur', 'occupation' => 'Interior Designer', 'bio' => 'Chai over coffee any day ☕ Book lover and vintage soul 📖'],
-            ['name' => 'Diya Kapoor', 'age' => 22, 'city' => 'Chandigarh', 'occupation' => 'Fitness Trainer', 'bio' => 'Yoga, clean eating & good vibes only 🧘‍♀️ Let\'s hit the gym together!'],
-            ['name' => 'Ishita Roy', 'age' => 25, 'city' => 'Hyderabad', 'occupation' => 'Product Manager', 'bio' => 'Biryani lover, startup enthusiast & avid traveler ✈️'],
-            ['name' => 'Neha Malhotra', 'age' => 23, 'city' => 'Delhi NCR', 'occupation' => 'Marketing Lead', 'bio' => 'Always ready for late night drives and ice cream runs 🍦🚗'],
-            ['name' => 'Simran Kaur', 'age' => 24, 'city' => 'Amritsar', 'occupation' => 'Dentist', 'bio' => 'Smiling is my profession and superpower 😁 Say hi!'],
-            ['name' => 'Shreya Gupta', 'age' => 23, 'city' => 'Lucknow', 'occupation' => 'Journalist', 'bio' => 'Stories, poetry and deep midnight conversations 🌙'],
-            ['name' => 'Kriti Menon', 'age' => 22, 'city' => 'Kochi', 'occupation' => 'Classical Dancer', 'bio' => 'Art in motion 💃 Love nature trails and cozy monsoon evenings 🌧️'],
-            ['name' => 'Natasha Reddy', 'age' => 25, 'city' => 'Bangalore', 'occupation' => 'Data Analyst', 'bio' => 'Solving problems by day, dancing salsa by night 💃🥂'],
-            ['name' => 'Aarohi Saxena', 'age' => 24, 'city' => 'Indore', 'occupation' => 'Photographer', 'bio' => 'Capturing candid moments and chasing sunsets 📸✨'],
-            ['name' => 'Kavya Mehra', 'age' => 23, 'city' => 'Goa', 'occupation' => 'Event Planner', 'bio' => 'Beach sunsets, acoustic music and good conversations 🏖️'],
-            ['name' => 'Avani Singhania', 'age' => 24, 'city' => 'Mumbai', 'occupation' => 'Investment Banker', 'bio' => 'Work hard, travel harder ✈️ Let\'s explore the city together!'],
-            ['name' => 'Meera Chawla', 'age' => 22, 'city' => 'Noida', 'occupation' => 'Graphic Artist', 'bio' => 'Illustrator & coffee addict ☕ Let\'s share playlists 🎶'],
-            ['name' => 'Tara Deshmukh', 'age' => 25, 'city' => 'Nagpur', 'occupation' => 'Pastry Chef', 'bio' => 'I bake the best chocolate croissants in town 🥐 Want to try?'],
-            ['name' => 'Zoya Khan', 'age' => 23, 'city' => 'Bhopal', 'occupation' => 'Lawyer', 'bio' => 'Debating, witty humor and cozy movie nights 🍿'],
-            ['name' => 'Sanya Oberoi', 'age' => 24, 'city' => 'Gurugram', 'occupation' => 'HR Specialist', 'bio' => 'Good vibes, cafe hopping and spontaneous weekend getaways ✨']
+            ['name' => 'Aaradhya Sharma', 'age' => 23, 'city' => 'Delhi NCR', 'occupation' => 'Fashion Designer', 'bio' => 'Coffee, late night drives & exploring aesthetics in Hauz Khas ☕🚗 Let\'s connect!'],
+            ['name' => 'Riya Sen', 'age' => 22, 'city' => 'Mumbai', 'occupation' => 'Model & Creator', 'bio' => 'Bandra cafes, Marine drive breeze & spicy conversations ✨ Say hi!'],
+            ['name' => 'Khushi Kapoor', 'age' => 24, 'city' => 'Bangalore', 'occupation' => 'Software Engineer', 'bio' => 'Tech by day, party & deep talks by night 🎧 Tell me your wildest story!'],
+            ['name' => 'Simran Kaur', 'age' => 23, 'city' => 'Chandigarh', 'occupation' => 'Fitness Influencer', 'bio' => 'Gedi route, gym & bold vibes only 🔥 Are you ready to handle me?'],
+            ['name' => 'Tanya Singhal', 'age' => 22, 'city' => 'Pune', 'occupation' => 'Content Creator', 'bio' => 'Spontaneous road trips & late night cravings 🍕 Let\'s see where this goes!'],
+            ['name' => 'Ishani Mukherjee', 'age' => 24, 'city' => 'Kolkata', 'occupation' => 'Stylist', 'bio' => 'Vintage music, chai & unfiltered late-night chats 🌙'],
+            ['name' => 'Shruti Agarwal', 'age' => 23, 'city' => 'Jaipur', 'occupation' => 'Interior Designer', 'bio' => 'Sweet on the outside, a little wild on the inside 🙈✨'],
+            ['name' => 'Radhika Joshi', 'age' => 25, 'city' => 'Ahmedabad', 'occupation' => 'Architect', 'bio' => 'Passionate about design, espresso & confident men ☕💋'],
+            ['name' => 'Sonam Chawla', 'age' => 24, 'city' => 'Gurgaon', 'occupation' => 'Marketing Lead', 'bio' => 'Cyberhub nights, good wine & bold connections 🍷✨'],
+            ['name' => 'Natasha Deshmukh', 'age' => 23, 'city' => 'Mumbai', 'occupation' => 'Dance Instructor', 'bio' => 'Salsa dancer 💃 Looking for someone who knows how to keep up!'],
+            ['name' => 'Kritika Nair', 'age' => 22, 'city' => 'Kochi', 'occupation' => 'Photographer', 'bio' => 'Monsoon rains, beach vibes & private video calls 🌧️📹'],
+            ['name' => 'Payal Kashyap', 'age' => 24, 'city' => 'Lucknow', 'occupation' => 'Journalist', 'bio' => 'Nawabi charm, shayari & late night secrets 🌙'],
+            ['name' => 'Mehak Gill', 'age' => 23, 'city' => 'Amritsar', 'occupation' => 'Dentist', 'bio' => 'Cute smile, dangerous eyes 😉 Let\'s talk!'],
+            ['name' => 'Kashish Malhotra', 'age' => 22, 'city' => 'Noida', 'occupation' => 'Graphic Artist', 'bio' => 'Don\'t be boring! Tell me your biggest guilty pleasure 🙈🔥'],
+            ['name' => 'Sanjana Reddy', 'age' => 24, 'city' => 'Hyderabad', 'occupation' => 'Data Scientist', 'bio' => 'Biryani, high heels & deep late-night chemistry 🥂'],
+            ['name' => 'Avani Patel', 'age' => 23, 'city' => 'Surat', 'occupation' => 'Event Planner', 'bio' => 'Living life on the edge. Looking for a partner in crime 😈'],
+            ['name' => 'Divya Saxena', 'age' => 25, 'city' => 'Bhopal', 'occupation' => 'Lawyer', 'bio' => 'Sharp mind, softer heart. Win me over if you can ✨'],
+            ['name' => 'Muskaan Bhatia', 'age' => 22, 'city' => 'Delhi NCR', 'occupation' => 'Makeup Artist', 'bio' => 'Glamour, late night ice cream & fun vibes 🍨💋'],
+            ['name' => 'Shilpa Rao', 'age' => 24, 'city' => 'Bangalore', 'occupation' => 'Brand Strategist', 'bio' => 'I love men who take the lead.. text me first! 😉'],
+            ['name' => 'Jasleen Sandhu', 'age' => 23, 'city' => 'Mohali', 'occupation' => 'Radio Host', 'bio' => 'Voice that will keep you up all night 🎧 Call me?']
         ];
 
         foreach ($botProfiles as $index => $data) {
@@ -66,7 +66,7 @@ class BotEngagementSeeder extends Seeder
                     'country' => 'India',
                     'occupation' => $data['occupation'],
                     'bio' => $data['bio'],
-                    'interests' => ['Travel', 'Coffee', 'Music', 'Photography', 'Art'],
+                    'interests' => ['Travel', 'Coffee', 'Late Night Drives', 'Music', 'Fitness'],
                     'is_completed' => true,
                 ]
             );
@@ -89,37 +89,54 @@ class BotEngagementSeeder extends Seeder
         }
 
         $cannedMessages = [
-            // Greetings & Openers
+            // 🌶️ Spicy / 18+ / Bold Indian Flirty Openers
+            ['category' => 'flirty', 'body' => "Hey handsome.. all alone tonight or got company? 😉🔥"],
+            ['category' => 'flirty', 'body' => "Are you as naughty in real life as you look in your photos? 🙈"],
+            ['category' => 'flirty', 'body' => "Coffee is fine, but what about a late night drive and secrets? 🚗✨"],
+            ['category' => 'flirty', 'body' => "Sach batao.. single ho ya just looking for fun? 😉"],
+            ['category' => 'flirty', 'body' => "I love bold guys who take control.. are you one? 💋"],
+            ['category' => 'flirty', 'body' => "Mummy ko mat batana, but you are totally my type 🙈🔥"],
+            ['category' => 'flirty', 'body' => "Late night cravings.. and no I don't mean food 😉"],
+            ['category' => 'flirty', 'body' => "A quick private video call? Don't be shy 📹💋"],
+            ['category' => 'flirty', 'body' => "Uff that smile.. kisi ko maar daloge kya? 😉"],
+            ['category' => 'flirty', 'body' => "Can we skip the small talk? What's your wildest fantasy? ✨"],
+            ['category' => 'flirty', 'body' => "Room me akele ho ya call pe baat ho sakti hai? 🙈"],
+            ['category' => 'flirty', 'body' => "Your DP is doing things to my mind.. just saying 😉🔥"],
+            ['category' => 'flirty', 'body' => "I was about to sleep, but then I saw your profile and got distracted 🙈"],
+            ['category' => 'flirty', 'body' => "Are you always this charming or practicing on me? 💋"],
+            ['category' => 'flirty', 'body' => "Do you believe in love at first swipe or should I message again? 😉"],
+            ['category' => 'flirty', 'body' => "Kuch to baat hai tum me.. curiosity badh rahi hai ✨"],
+            ['category' => 'flirty', 'body' => "Late night talks hit different when the connection is real 🔥"],
+
+            // 👋 Normal / Cute Indian Openers
             ['category' => 'greeting', 'body' => "Hey! Just saw your profile and had to say hi ✨"],
-            ['category' => 'greeting', 'body' => "Hey handsome 😊 Loved your vibe!"],
-            ['category' => 'greeting', 'body' => "Hello! Are you having a good day?"],
-            ['category' => 'greeting', 'body' => "Hey there! What brings you to Soul Connect? 💫"],
+            ['category' => 'greeting', 'body' => "Hey handsome 😊 Weekend pe kya plans hai?"],
+            ['category' => 'greeting', 'body' => "Chai lover ho ya coffee person? ☕"],
+            ['category' => 'greeting', 'body' => "Hey! Loved your profile vibe ✨ Are you from Delhi or Mumbai?"],
             ['category' => 'greeting', 'body' => "Hi! You have such a charming smile in your photos 😊"],
-            ['category' => 'greeting', 'body' => "Hey! Glad we connected here ✨"],
+            ['category' => 'greeting', 'body' => "Hey! Glad we connected here ✨ What brings you to Soul Connect?"],
             ['category' => 'greeting', 'body' => "Hi there! What kind of music are you into lately? 🎧"],
-            ['category' => 'greeting', 'body' => "Hey handsome! How is your day going? 🌸"],
+            ['category' => 'greeting', 'body' => "Hey handsome! How is your week going so far? 🌸"],
+            ['category' => 'greeting', 'body' => "Hi! Tell me your favorite travel destination ✈️"],
+            ['category' => 'greeting', 'body' => "Hello! Hope you're having an amazing day 😊"],
 
-            // Compliments & Flirty Hooks
-            ['category' => 'flirty', 'body' => "Coffee person or late night drives person? ☕🚗"],
-            ['category' => 'flirty', 'body' => "I'm usually shy but your profile caught my attention ✨"],
-            ['category' => 'flirty', 'body' => "Do you believe in instant connections? ✨"],
-            ['category' => 'flirty', 'body' => "You look even more charming in your pictures! 🙈"],
-            ['category' => 'flirty', 'body' => "Are you always this handsome or is today special? 😊"],
-
-            // Curiosity Questions
-            ['category' => 'question', 'body' => "Are you from around here or visiting? 📍"],
-            ['category' => 'question', 'body' => "What's your ideal weekend getaway? 🏖️"],
-            ['category' => 'question', 'body' => "What's the best cafe you've visited recently?"],
+            // ❓ Curiosity & Icebreaker Questions
+            ['category' => 'question', 'body' => "Are you from around here or recently moved? 📍"],
+            ['category' => 'question', 'body' => "What's your ideal Sunday evening plan? 🏖️"],
+            ['category' => 'question', 'body' => "What's the best cafe you've visited recently in town?"],
             ['category' => 'question', 'body' => "Tell me one thing that made you smile today 😊"],
-            ['category' => 'question', 'body' => "Tell me about your favorite travel spot! ✈️"],
+            ['category' => 'question', 'body' => "Late night long drives or cozy Netflix nights? 🚗🍿"],
+            ['category' => 'question', 'body' => "What's one red flag and one green flag in you? 😉"],
+            ['category' => 'question', 'body' => "If we hang out, who is picking the food spot? 🍕"],
 
-            // Follow Ups
+            // 💬 Follow-Ups & Call Invitations
             ['category' => 'follow_up', 'body' => "Would love to get to know you better 😊"],
             ['category' => 'follow_up', 'body' => "Are you free to chat for a bit? ✨"],
             ['category' => 'follow_up', 'body' => "Let's catch up whenever you're free! 😊"],
             ['category' => 'follow_up', 'body' => "Drop me a text when you see this 💬"],
-            ['category' => 'follow_up', 'body' => "Maybe we can do a quick video call later if you're up for it? 📹"],
-            ['category' => 'follow_up', 'body' => "Talk soon! Have a great day ahead 🌸"],
+            ['category' => 'follow_up', 'body' => "Maybe we can do a quick 1-on-1 video call later? 📹💋"],
+            ['category' => 'follow_up', 'body' => "Waiting for your reply.. don't keep a girl waiting! 😉"],
+            ['category' => 'follow_up', 'body' => "Talk soon! Have an amazing night ahead 🌸"],
         ];
 
         foreach ($cannedMessages as $msg) {

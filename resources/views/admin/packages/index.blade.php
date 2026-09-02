@@ -31,7 +31,7 @@
                             <td><strong>{{ $p->name }}</strong></td>
                             <td><strong>{{ number_format($p->coins) }}</strong> 🪙</td>
                             <td>+{{ number_format($p->bonus_coins) }}</td>
-                            <td><strong>${{ number_format($p->price, 2) }}</strong></td>
+                            <td><strong>₹{{ number_format($p->price) }}</strong></td>
                             <td><code>{{ $p->google_product_id }}</code></td>
                             <td>
                                 <span class="badge {{ $p->is_active ? 'badge-active' : 'badge-suspended' }}">
