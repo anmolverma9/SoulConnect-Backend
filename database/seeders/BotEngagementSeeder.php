@@ -87,5 +87,46 @@ class BotEngagementSeeder extends Seeder
                 ]
             );
         }
+
+        $cannedMessages = [
+            // Greetings & Openers
+            ['category' => 'greeting', 'body' => "Hey! Just saw your profile and had to say hi ✨"],
+            ['category' => 'greeting', 'body' => "Hey handsome 😊 Loved your vibe!"],
+            ['category' => 'greeting', 'body' => "Hello! Are you having a good day?"],
+            ['category' => 'greeting', 'body' => "Hey there! What brings you to Soul Connect? 💫"],
+            ['category' => 'greeting', 'body' => "Hi! You have such a charming smile in your photos 😊"],
+            ['category' => 'greeting', 'body' => "Hey! Glad we connected here ✨"],
+            ['category' => 'greeting', 'body' => "Hi there! What kind of music are you into lately? 🎧"],
+            ['category' => 'greeting', 'body' => "Hey handsome! How is your day going? 🌸"],
+
+            // Compliments & Flirty Hooks
+            ['category' => 'flirty', 'body' => "Coffee person or late night drives person? ☕🚗"],
+            ['category' => 'flirty', 'body' => "I'm usually shy but your profile caught my attention ✨"],
+            ['category' => 'flirty', 'body' => "Do you believe in instant connections? ✨"],
+            ['category' => 'flirty', 'body' => "You look even more charming in your pictures! 🙈"],
+            ['category' => 'flirty', 'body' => "Are you always this handsome or is today special? 😊"],
+
+            // Curiosity Questions
+            ['category' => 'question', 'body' => "Are you from around here or visiting? 📍"],
+            ['category' => 'question', 'body' => "What's your ideal weekend getaway? 🏖️"],
+            ['category' => 'question', 'body' => "What's the best cafe you've visited recently?"],
+            ['category' => 'question', 'body' => "Tell me one thing that made you smile today 😊"],
+            ['category' => 'question', 'body' => "Tell me about your favorite travel spot! ✈️"],
+
+            // Follow Ups
+            ['category' => 'follow_up', 'body' => "Would love to get to know you better 😊"],
+            ['category' => 'follow_up', 'body' => "Are you free to chat for a bit? ✨"],
+            ['category' => 'follow_up', 'body' => "Let's catch up whenever you're free! 😊"],
+            ['category' => 'follow_up', 'body' => "Drop me a text when you see this 💬"],
+            ['category' => 'follow_up', 'body' => "Maybe we can do a quick video call later if you're up for it? 📹"],
+            ['category' => 'follow_up', 'body' => "Talk soon! Have a great day ahead 🌸"],
+        ];
+
+        foreach ($cannedMessages as $msg) {
+            \App\Models\BotCannedMessage::firstOrCreate(
+                ['body' => $msg['body']],
+                ['category' => $msg['category'], 'is_active' => true]
+            );
+        }
     }
 }

@@ -58,6 +58,17 @@ Route::prefix('admin')->group(function () {
         // Subscriptions
         Route::get('subscriptions', [AdminWebController::class, 'subscriptions'])->name('admin.subscriptions');
 
+        // Bot Messages Bank
+        Route::get('bot-messages', [AdminWebController::class, 'botMessages'])->name('admin.bot_messages');
+        Route::post('bot-messages', [AdminWebController::class, 'storeBotMessage'])->name('admin.bot_messages.store');
+        Route::put('bot-messages/{message}', [AdminWebController::class, 'updateBotMessage'])->name('admin.bot_messages.update');
+        Route::delete('bot-messages/{message}', [AdminWebController::class, 'deleteBotMessage'])->name('admin.bot_messages.delete');
+
+        // Live Conversations & Chat Monitor
+        Route::get('conversations', [AdminWebController::class, 'conversations'])->name('admin.conversations');
+        Route::get('conversations/{conversation}', [AdminWebController::class, 'showConversation'])->name('admin.conversations.show');
+        Route::post('conversations/{conversation}/message', [AdminWebController::class, 'sendAdminMessage'])->name('admin.conversations.message');
+
         // System Settings
         Route::get('settings', [AdminWebController::class, 'settings'])->name('admin.settings');
         Route::post('settings', [AdminWebController::class, 'saveSettings'])->name('admin.settings.save');

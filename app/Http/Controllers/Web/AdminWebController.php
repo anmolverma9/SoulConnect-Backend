@@ -443,4 +443,131 @@ class AdminWebController extends Controller
 
         return back()->with('success', 'System settings saved successfully.');
     }
+
+    /**
+     * Bot Messages Bank List
+     */
+    public function botMessages(Request $request): View
+    {
+        $category = $request->query('category');
+        $query = \App\Models\BotCannedMessage::orderBy('id', 'desc');
+
+        if ($category && in_array($category, ['greeting', 'compliment', 'question', 'flirty', 'follow_up'])) {
+            $query->where('category', $category);
+        }
+
+        $messages = $query->paginate(20);
+        $totalActive = \App\Models\BotCannedMessage::where('is_active', true)->count();
+        $totalBots = User::where('is_bot', true)->count();
+
+        return view('admin.bot_messages.index', compact('messages', 'category', 'totalActive', 'totalBots'));
+    }
+
+    /**
+     * Store New Bot Message Template
+     */
+    public function storeBotMessage(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'category' => 'required|in:greeting,compliment,question,flirty,follow_up',
+            'body' => 'required|string|max:1000',
+        ]);
+
+        \App\Models\BotCannedMessage::create([
+            'category' => $validated['category'],
+            'body' => $validated['body'],
+            'is_active' => true,
+        ]);
+
+        return back()->with('success', 'New bot message template added.');
+    }
+
+    /**
+     * Toggle Active or Update Bot Message
+     */
+    public function updateBotMessage(Request $request, \App\Models\BotCannedMessage $message): RedirectResponse
+    {
+        if ($request->has('toggle_status')) {
+            $message->update(['is_active' => ! $message->is_active]);
+            return back()->with('success', 'Message status toggled.');
+        }
+
+        $validated = $request->validate([
+            'category' => 'required|in:greeting,compliment,question,flirty,follow_up',
+            'body' => 'required|string|max:1000',
+        ]);
+
+        $message->update($validated);
+
+        return back()->with('success', 'Message template updated.');
+    }
+
+    /**
+     * Delete Bot Message Template
+     */
+    public function deleteBotMessage(\App\Models\BotCannedMessage $message): RedirectResponse
+    {
+        $message->delete();
+        return back()->with('success', 'Message template deleted.');
+    }
+
+    /**
+     * Conversations & Live Chat Monitor
+     */
+    public function conversations(Request $request): View
+    {
+        $conversations = \App\Models\Conversation::with([
+            'participants.user.profile',
+            'participants.user.photos',
+            'lastMessage'
+        ])
+        ->orderBy('last_message_at', 'desc')
+        ->paginate(20);
+
+        return view('admin.conversations.index', compact('conversations'));
+    }
+
+    /**
+     * View Specific Conversation Transcript
+     */
+    public function showConversation(\App\Models\Conversation $conversation): View
+    {
+        $conversation->load([
+            'participants.user.profile',
+            'participants.user.photos',
+            'messages' => function ($q) {
+                $q->orderBy('created_at', 'asc');
+            }
+        ]);
+
+        return view('admin.conversations.show', compact('conversation'));
+    }
+
+    /**
+     * Send Message on behalf of a Bot
+     */
+    public function sendAdminMessage(Request $request, \App\Models\Conversation $conversation): RedirectResponse
+    {
+        $validated = $request->validate([
+            'sender_id' => 'required|integer|exists:users,id',
+            'body' => 'required|string|max:2000',
+        ]);
+
+        $msg = \App\Models\Message::create([
+            'conversation_id' => $conversation->id,
+            'sender_id' => $validated['sender_id'],
+            'type' => 'text',
+            'body' => $validated['body'],
+            'status' => 'sent',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $conversation->update([
+            'last_message_id' => $msg->id,
+            'last_message_at' => Carbon::now(),
+        ]);
+
+        return back()->with('success', 'Message sent successfully.');
+    }
 }

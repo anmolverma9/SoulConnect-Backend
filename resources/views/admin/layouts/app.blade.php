@@ -522,6 +522,12 @@
             <a href="{{ route('admin.subscriptions') }}" class="nav-item {{ request()->routeIs('admin.subscriptions*') ? 'active' : '' }}">
                 <i class="fa-solid fa-gem"></i> Subscriptions
             </a>
+            <a href="{{ route('admin.bot_messages') }}" class="nav-item {{ request()->routeIs('admin.bot_messages*') ? 'active' : '' }}">
+                <i class="fa-solid fa-robot"></i> Bot Messages Bank
+            </a>
+            <a href="{{ route('admin.conversations') }}" class="nav-item {{ request()->routeIs('admin.conversations*') ? 'active' : '' }}">
+                <i class="fa-solid fa-comments"></i> Live Chat Monitor
+            </a>
             <a href="{{ route('admin.settings') }}" class="nav-item {{ request()->routeIs('admin.settings*') ? 'active' : '' }}">
                 <i class="fa-solid fa-sliders"></i> System Settings
             </a>

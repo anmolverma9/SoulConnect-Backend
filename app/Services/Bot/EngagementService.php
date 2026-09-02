@@ -76,6 +76,13 @@ class EngagementService
 
             $now = Carbon::now();
 
+            $dbOpeners = \App\Models\BotCannedMessage::where('is_active', true)->whereIn('category', ['greeting', 'flirty', 'question'])->pluck('body')->toArray();
+            $dbFollowUps = \App\Models\BotCannedMessage::where('is_active', true)->where('category', 'follow_up')->pluck('body')->toArray();
+
+            $openersList = !empty($dbOpeners) ? $dbOpeners : self::$openers;
+            $followUps1List = !empty($dbFollowUps) ? $dbFollowUps : self::$followUps1;
+            $followUps2List = !empty($dbFollowUps) ? $dbFollowUps : self::$followUps2;
+
             foreach ($botUsers as $index => $bot) {
                 // Check if conversation already exists between this bot and user
                 $existingConvId = \App\Models\ConversationParticipant::where('user_id', $newUser->id)
@@ -110,14 +117,14 @@ class EngagementService
                 // Determine message count for this bot (1 to 3 messages)
                 $messageCount = rand(1, 3);
                 $messagesToSend = [
-                    self::$openers[array_rand(self::$openers)]
+                    $openersList[array_rand($openersList)]
                 ];
 
                 if ($messageCount >= 2) {
-                    $messagesToSend[] = self::$followUps1[array_rand(self::$followUps1)];
+                    $messagesToSend[] = $followUps1List[array_rand($followUps1List)];
                 }
                 if ($messageCount >= 3) {
-                    $messagesToSend[] = self::$followUps2[array_rand(self::$followUps2)];
+                    $messagesToSend[] = $followUps2List[array_rand($followUps2List)];
                 }
 
                 $messageTime = $now->copy()->subMinutes(rand(5, 30));
