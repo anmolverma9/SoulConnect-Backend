@@ -85,6 +85,12 @@ Route::prefix('v1')->group(function () {
             Route::patch('coin-packages/{package}', [AdminCoinPackageController::class, 'update']);
             Route::delete('coin-packages/{package}', [AdminCoinPackageController::class, 'destroy']);
 
+            // Calls & Gifts
+            Route::get('calls', [AdminDashboardController::class, 'calls']);
+            Route::get('gifts', [AdminDashboardController::class, 'gifts']);
+            Route::post('gifts', [AdminDashboardController::class, 'storeGift']);
+            Route::delete('gifts/{gift}', [AdminDashboardController::class, 'destroyGift']);
+
             // System Settings
             Route::get('settings', [AdminSettingController::class, 'index']);
             Route::patch('settings', [AdminSettingController::class, 'update']);

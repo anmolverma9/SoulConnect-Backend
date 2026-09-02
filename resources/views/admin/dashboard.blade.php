@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul Connect — Admin Panel</title>
+    <title>Soul Connect — Master Admin Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -57,7 +56,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
         }
 
         body {
@@ -69,7 +68,7 @@
 
         /* Sidebar */
         .sidebar {
-            width: 260px;
+            width: 250px;
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -82,7 +81,7 @@
         }
 
         .sidebar-header {
-            padding: 24px;
+            padding: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -90,39 +89,40 @@
         }
 
         .logo-icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, #ec4899, #8b5cf6);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .logo-text {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 17px;
             letter-spacing: -0.5px;
         }
 
         .sidebar-menu {
-            padding: 16px 12px;
+            padding: 14px 10px;
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
+            overflow-y: auto;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 14px;
+            padding: 9px 12px;
             border-radius: 8px;
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 500;
             cursor: pointer;
             text-decoration: none;
@@ -135,11 +135,11 @@
 
         .nav-item.active {
             background-color: var(--primary);
-            color: #ffffff;
+            color: #ffffff !important;
         }
 
         .sidebar-footer {
-            padding: 16px;
+            padding: 14px 16px;
             border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -148,7 +148,7 @@
 
         /* Main Content */
         .main-wrapper {
-            margin-left: 260px;
+            margin-left: 250px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -156,10 +156,10 @@
         }
 
         header {
-            height: 70px;
+            height: 64px;
             background: var(--bg-surface);
             border-bottom: 1px solid var(--border-color);
-            padding: 0 32px;
+            padding: 0 28px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -169,7 +169,7 @@
         }
 
         .header-title {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
@@ -177,14 +177,14 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .btn-theme {
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            padding: 8px 12px;
+            padding: 7px 12px;
             border-radius: 8px;
             cursor: pointer;
             display: flex;
@@ -197,7 +197,7 @@
             background: var(--danger-light);
             color: var(--danger);
             border: none;
-            padding: 8px 14px;
+            padding: 7px 14px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 13px;
@@ -205,27 +205,27 @@
         }
 
         .content {
-            padding: 32px;
+            padding: 28px;
             flex: 1;
         }
 
         /* Stat Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
         .stat-card {
             background: var(--bg-surface);
-            padding: 22px;
+            padding: 18px 20px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
             box-shadow: var(--card-shadow);
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .stat-header {
@@ -235,29 +235,29 @@
         }
 
         .stat-label {
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--text-secondary);
             font-weight: 500;
         }
 
         .stat-icon {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .stat-value {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: var(--text-primary);
         }
 
         .stat-sub {
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--success);
             font-weight: 500;
         }
@@ -268,22 +268,22 @@
             border-radius: 12px;
             border: 1px solid var(--border-color);
             box-shadow: var(--card-shadow);
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             overflow: hidden;
         }
 
         .card-header {
-            padding: 20px 24px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
         .card-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
         }
 
@@ -297,13 +297,13 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 14px;
+            font-size: 13.5px;
         }
 
         th {
             background: var(--bg-primary);
-            padding: 12px 20px;
-            font-size: 12px;
+            padding: 11px 16px;
+            font-size: 11.5px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -312,7 +312,7 @@
         }
 
         td {
-            padding: 14px 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
         }
@@ -329,9 +329,9 @@
         .badge {
             display: inline-flex;
             align-items: center;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 9999px;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
         }
 
@@ -347,35 +347,21 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 8px 16px;
+            gap: 6px;
+            padding: 7px 14px;
             border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             border: none;
-            transition: all 0.2s;
+            transition: all 0.15s;
         }
 
-        .btn-primary {
-            background: var(--primary);
-            color: #ffffff;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-hover);
-        }
-
-        .btn-secondary {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .btn-sm {
-            padding: 4px 10px;
-            font-size: 12px;
-        }
+        .btn-primary { background: var(--primary); color: #ffffff; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-secondary { background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); }
+        .btn-danger { background: var(--danger-light); color: var(--danger); border: 1px solid var(--danger); }
+        .btn-sm { padding: 4px 9px; font-size: 12px; }
 
         .input-group {
             display: flex;
@@ -383,7 +369,7 @@
             gap: 8px;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            padding: 8px 14px;
+            padding: 7px 12px;
             border-radius: 8px;
         }
 
@@ -397,25 +383,25 @@
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 500;
             color: var(--text-secondary);
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .form-control {
             width: 100%;
-            padding: 10px 14px;
+            padding: 9px 12px;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-primary);
-            font-size: 14px;
+            font-size: 13.5px;
             outline: none;
         }
 
@@ -438,22 +424,22 @@
 
         .modal {
             background: var(--bg-surface);
-            border-radius: 16px;
+            border-radius: 14px;
             width: 100%;
             max-width: 500px;
             border: 1px solid var(--border-color);
             box-shadow: var(--modal-shadow);
             overflow: hidden;
-            animation: modalIn 0.2s ease-out;
+            animation: modalIn 0.15s ease-out;
         }
 
         @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.95); }
+            from { opacity: 0; transform: scale(0.96); }
             to { opacity: 1; transform: scale(1); }
         }
 
         .modal-header {
-            padding: 20px 24px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -461,15 +447,15 @@
         }
 
         .modal-body {
-            padding: 24px;
+            padding: 20px;
         }
 
         .modal-footer {
-            padding: 16px 24px;
+            padding: 14px 20px;
             border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: flex-end;
-            gap: 12px;
+            gap: 10px;
             background: var(--bg-primary);
         }
 
@@ -487,12 +473,12 @@
 
         .login-card {
             background: var(--bg-surface);
-            padding: 40px;
+            padding: 36px;
             border-radius: 16px;
             border: 1px solid var(--border-color);
             box-shadow: var(--modal-shadow);
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
         }
 
         /* Toast */
@@ -500,10 +486,10 @@
             position: fixed;
             bottom: 24px;
             right: 24px;
-            padding: 14px 20px;
+            padding: 12px 18px;
             border-radius: 10px;
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 500;
             display: none;
             align-items: center;
@@ -525,8 +511,8 @@
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
                 <div class="logo-icon"><i class="fa-solid fa-heart"></i></div>
                 <div>
-                    <h2 style="font-size: 20px; font-weight: 700;">Soul Connect</h2>
-                    <p style="font-size: 13px; color: var(--text-secondary);">Administrator Portal</p>
+                    <h2 style="font-size: 19px; font-weight: 700;">Soul Connect</h2>
+                    <p style="font-size: 12.5px; color: var(--text-secondary);">Master Administrator Portal</p>
                 </div>
             </div>
 
@@ -539,7 +525,7 @@
                     <label>Password</label>
                     <input type="password" id="loginPassword" class="form-control" placeholder="••••••••••••" value="Admin@Secure2026!" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 11px; margin-top: 6px;">
                     <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In to Dashboard
                 </button>
             </form>
@@ -556,16 +542,19 @@
         <nav class="sidebar-menu">
             <a class="nav-item active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
             <a class="nav-item" onclick="switchTab('users')"><i class="fa-solid fa-users"></i> Users & Profiles</a>
+            <a class="nav-item" onclick="switchTab('wallets')"><i class="fa-solid fa-receipt"></i> Financial Ledger</a>
+            <a class="nav-item" onclick="switchTab('calls')"><i class="fa-solid fa-phone"></i> Call Records</a>
             <a class="nav-item" onclick="switchTab('reports')"><i class="fa-solid fa-shield-halved"></i> Abuse Reports</a>
             <a class="nav-item" onclick="switchTab('packages')"><i class="fa-solid fa-coins"></i> Coin Packages</a>
+            <a class="nav-item" onclick="switchTab('gifts')"><i class="fa-solid fa-gift"></i> Gift Catalog</a>
             <a class="nav-item" onclick="switchTab('subscriptions')"><i class="fa-solid fa-gem"></i> Subscriptions</a>
-            <a class="nav-item" onclick="switchTab('settings')"><i class="fa-solid fa-sliders"></i> App Settings</a>
+            <a class="nav-item" onclick="switchTab('settings')"><i class="fa-solid fa-sliders"></i> System Settings</a>
         </nav>
 
         <div class="sidebar-footer">
             <div style="display: flex; align-items: center; gap: 10px;">
                 <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">AD</div>
-                <div style="font-size: 13px;">
+                <div style="font-size: 12.5px;">
                     <div id="adminName" style="font-weight: 600;">Admin</div>
                     <div style="font-size: 11px; color: var(--text-muted);">Super Admin</div>
                 </div>
@@ -605,7 +594,7 @@
                             <div class="stat-icon" style="background: var(--danger-light); color: var(--danger);"><i class="fa-solid fa-heart"></i></div>
                         </div>
                         <div class="stat-value" id="statMatches">-</div>
-                        <div class="stat-sub">Active connections</div>
+                        <div class="stat-sub">Active pairs</div>
                     </div>
 
                     <div class="stat-card">
@@ -614,16 +603,25 @@
                             <div class="stat-icon" style="background: var(--success-light); color: var(--success);"><i class="fa-solid fa-phone"></i></div>
                         </div>
                         <div class="stat-value" id="statCalls">-</div>
-                        <div class="stat-sub">Voice & Video</div>
+                        <div class="stat-sub"><span id="statCallMinutes">0</span> minutes billed</div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-label">Active Subscriptions</span>
+                            <span class="stat-label">VIP Subscriptions</span>
                             <div class="stat-icon" style="background: var(--warning-light); color: var(--warning);"><i class="fa-solid fa-gem"></i></div>
                         </div>
                         <div class="stat-value" id="statSubs">-</div>
-                        <div class="stat-sub">VIP Premium Members</div>
+                        <div class="stat-sub">Active members</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-label">Coin Sales Revenue</span>
+                            <div class="stat-icon" style="background: var(--success-light); color: var(--success);"><i class="fa-solid fa-dollar-sign"></i></div>
+                        </div>
+                        <div class="stat-value" id="statRevenue">$0.00</div>
+                        <div class="stat-sub"><span id="statCirculatingCoins">0</span> coins in wallets</div>
                     </div>
 
                     <div class="stat-card">
@@ -638,25 +636,25 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title"><i class="fa-solid fa-circle-info" style="color: var(--primary); margin-right: 6px;"></i> System Health & Connectivity</span>
+                        <span class="card-title"><i class="fa-solid fa-circle-info" style="color: var(--primary); margin-right: 6px;"></i> Platform Status & Architecture</span>
                     </div>
-                    <div style="padding: 24px;">
+                    <div style="padding: 20px;">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
                             <div>
-                                <span style="font-size: 12px; color: var(--text-secondary);">REST API Engine</span>
+                                <span style="font-size: 12px; color: var(--text-secondary);">Backend Engine</span>
                                 <div style="font-weight: 600; margin-top: 4px; color: var(--success);"><i class="fa-solid fa-check-circle"></i> Laravel 12 (PHP 8.4)</div>
                             </div>
                             <div>
                                 <span style="font-size: 12px; color: var(--text-secondary);">Database Status</span>
-                                <div style="font-weight: 600; margin-top: 4px; color: var(--success);"><i class="fa-solid fa-check-circle"></i> MySQL 8 Connected</div>
+                                <div style="font-weight: 600; margin-top: 4px; color: var(--success);"><i class="fa-solid fa-check-circle"></i> MySQL 8 ACID Ledger</div>
                             </div>
                             <div>
-                                <span style="font-size: 12px; color: var(--text-secondary);">API Prefix</span>
-                                <div style="font-weight: 600; margin-top: 4px;"><code>/api/v1/</code></div>
+                                <span style="font-size: 12px; color: var(--text-secondary);">REST API Engine</span>
+                                <div style="font-weight: 600; margin-top: 4px;"><code>/api/v1/</code> Active</div>
                             </div>
                             <div>
-                                <span style="font-size: 12px; color: var(--text-secondary);">Environment</span>
-                                <div style="font-weight: 600; margin-top: 4px;">Production</div>
+                                <span style="font-size: 12px; color: var(--text-secondary);">WebSockets Host</span>
+                                <div style="font-weight: 600; margin-top: 4px;">Laravel Reverb (Port 8080)</div>
                             </div>
                         </div>
                     </div>
@@ -667,11 +665,11 @@
             <section id="tab-users" class="hidden">
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">User Accounts & Moderation</span>
-                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <span class="card-title">User Accounts & Balances</span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div class="input-group">
                                 <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
-                                <input type="text" id="userSearchInput" placeholder="Search name or email..." oninput="loadUsers()">
+                                <input type="text" id="userSearchInput" placeholder="Search name or email..." oninput="debounce(loadUsers, 300)()">
                             </div>
                             <div class="input-group">
                                 <select id="userStatusFilter" onchange="loadUsers()">
@@ -690,21 +688,75 @@
                                     <th>User</th>
                                     <th>Email</th>
                                     <th>Status</th>
-                                    <th>Coins</th>
-                                    <th>Subscription</th>
-                                    <th>Last Active</th>
+                                    <th>Wallet Balance</th>
+                                    <th>VIP Tier</th>
+                                    <th>Joined Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="usersTableBody">
-                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading users...</td></tr>
+                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">Loading users...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- TAB 3: REPORTS -->
+            <!-- TAB 3: FINANCIAL LEDGER -->
+            <section id="tab-wallets" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Live Coin Transactions & Audit Ledger</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tx ID</th>
+                                    <th>User</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Balance Before ➔ After</th>
+                                    <th>Description</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="walletsTableBody">
+                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">Loading transaction ledger...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: CALL RECORDS -->
+            <section id="tab-calls" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Voice & Video Call History</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Caller</th>
+                                    <th>Receiver</th>
+                                    <th>Type</th>
+                                    <th>Duration</th>
+                                    <th>Coins Charged</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="callsTableBody">
+                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">Loading call records...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: REPORTS -->
             <section id="tab-reports" class="hidden">
                 <div class="card">
                     <div class="card-header">
@@ -732,18 +784,18 @@
                                 </tr>
                             </thead>
                             <tbody id="reportsTableBody">
-                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading reports...</td></tr>
+                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 25px;">Loading reports...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- TAB 4: COIN PACKAGES -->
+            <!-- TAB 6: COIN PACKAGES -->
             <section id="tab-packages" class="hidden">
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">In-App Coin Packages</span>
+                        <span class="card-title">In-App Coin Store Packages</span>
                         <button class="btn btn-primary btn-sm" onclick="openPackageModal()"><i class="fa-solid fa-plus"></i> Add Package</button>
                     </div>
                     <div class="table-responsive">
@@ -753,25 +805,52 @@
                                     <th>Package Name</th>
                                     <th>Coins</th>
                                     <th>Bonus Coins</th>
-                                    <th>Price</th>
-                                    <th>Google Product ID</th>
+                                    <th>Price (USD)</th>
+                                    <th>Google Product SKU</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="packagesTableBody">
-                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading packages...</td></tr>
+                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">Loading packages...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- TAB 5: SUBSCRIPTIONS -->
+            <!-- TAB 7: GIFT CATALOG -->
+            <section id="tab-gifts" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Virtual Gift Catalog</span>
+                        <button class="btn btn-primary btn-sm" onclick="openGiftModal()"><i class="fa-solid fa-plus"></i> Add Gift</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Icon</th>
+                                    <th>Gift Name</th>
+                                    <th>Coin Price</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="giftsTableBody">
+                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 25px;">Loading gifts...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 8: SUBSCRIPTIONS -->
             <section id="tab-subscriptions" class="hidden">
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">Active User Subscriptions</span>
+                        <span class="card-title">Active VIP Memberships</span>
                     </div>
                     <div class="table-responsive">
                         <table>
@@ -779,24 +858,25 @@
                                 <tr>
                                     <th>User</th>
                                     <th>Plan</th>
-                                    <th>Status</th>
+                                    <th>Order ID</th>
                                     <th>Starts At</th>
                                     <th>Ends At</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody id="subsTableBody">
-                                <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading subscriptions...</td></tr>
+                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 25px;">Loading subscriptions...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- TAB 6: SETTINGS -->
+            <!-- TAB 9: SETTINGS -->
             <section id="tab-settings" class="hidden">
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">Application Dynamic Configuration</span>
+                        <span class="card-title">Application Dynamic Pricing & Limits</span>
                     </div>
                     <div style="padding: 24px; max-width: 650px;">
                         <form id="settingsForm" onsubmit="saveSettings(event)">
@@ -817,10 +897,10 @@
                                 <input type="number" id="setting_super_like_cost" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>Daily Free Likes (Non-subscribers)</label>
+                                <label>Daily Free Swipes (Free accounts)</label>
                                 <input type="number" id="setting_free_likes" class="form-control" required>
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Configuration</button>
                         </form>
                     </div>
                 </div>
@@ -833,7 +913,7 @@
     <div id="walletModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3 style="font-size: 16px; font-weight: 600;">Adjust User Wallet</h3>
+                <h3 style="font-size: 15px; font-weight: 600;">Adjust User Coins</h3>
                 <button onclick="closeModal('walletModal')" style="background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted);">&times;</button>
             </div>
             <form onsubmit="handleWalletAdjust(event)">
@@ -844,12 +924,12 @@
                         <input type="text" id="adjustUserName" class="form-control" readonly style="opacity: 0.7;">
                     </div>
                     <div class="form-group">
-                        <label>Coin Amount (+ to add, - to deduct)</label>
+                        <label>Coin Adjustment (+ to add, - to deduct)</label>
                         <input type="number" id="adjustAmount" class="form-control" placeholder="e.g. 100 or -50" required>
                     </div>
                     <div class="form-group">
                         <label>Mandatory Audit Reason</label>
-                        <input type="text" id="adjustReason" class="form-control" placeholder="e.g. Customer compensation / promotional credit" required minlength="5">
+                        <input type="text" id="adjustReason" class="form-control" placeholder="e.g. Customer support compensation" required minlength="5">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -864,7 +944,7 @@
     <div id="statusModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3 style="font-size: 16px; font-weight: 600;">Update User Status</h3>
+                <h3 style="font-size: 15px; font-weight: 600;">Update Account Status</h3>
                 <button onclick="closeModal('statusModal')" style="background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted);">&times;</button>
             </div>
             <form onsubmit="handleStatusUpdate(event)">
@@ -873,14 +953,14 @@
                     <div class="form-group">
                         <label>Account Status</label>
                         <select id="statusSelect" class="form-control">
-                            <option value="active">Active (Normal access)</option>
+                            <option value="active">Active (Full access)</option>
                             <option value="suspended">Suspended (Temporary hold)</option>
                             <option value="banned">Banned (Permanent block)</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Reason for Action</label>
-                        <input type="text" id="statusReason" class="form-control" placeholder="e.g. Policy violation / impersonation">
+                        <input type="text" id="statusReason" class="form-control" placeholder="e.g. Terms violation / spam">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -895,7 +975,7 @@
     <div id="reportModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3 style="font-size: 16px; font-weight: 600;">Review Abuse Report</h3>
+                <h3 style="font-size: 15px; font-weight: 600;">Review Abuse Report</h3>
                 <button onclick="closeModal('reportModal')" style="background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted);">&times;</button>
             </div>
             <form onsubmit="handleReportReview(event)">
@@ -926,15 +1006,14 @@
     <div id="packageModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3 style="font-size: 16px; font-weight: 600;" id="pkgModalTitle">Add Coin Package</h3>
+                <h3 style="font-size: 15px; font-weight: 600;" id="pkgModalTitle">Add Coin Package</h3>
                 <button onclick="closeModal('packageModal')" style="background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted);">&times;</button>
             </div>
             <form onsubmit="handlePackageSave(event)">
                 <div class="modal-body">
-                    <input type="hidden" id="pkgId">
                     <div class="form-group">
                         <label>Package Name</label>
-                        <input type="text" id="pkgName" class="form-control" placeholder="e.g. Starter Pack" required>
+                        <input type="text" id="pkgName" class="form-control" placeholder="e.g. Popular Pack" required>
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="form-group">
@@ -952,7 +1031,7 @@
                             <input type="number" step="0.01" id="pkgPrice" class="form-control" required min="0">
                         </div>
                         <div class="form-group">
-                            <label>Google Product ID</label>
+                            <label>Google Product SKU</label>
                             <input type="text" id="pkgGoogleId" class="form-control" placeholder="com.dating.coins_100" required>
                         </div>
                     </div>
@@ -960,6 +1039,46 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('packageModal')">Cancel</button>
                     <button type="submit" class="btn btn-primary">Save Package</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD VIRTUAL GIFT -->
+    <div id="giftModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 style="font-size: 15px; font-weight: 600;">Add Virtual Gift</h3>
+                <button onclick="closeModal('giftModal')" style="background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted);">&times;</button>
+            </div>
+            <form onsubmit="handleGiftSave(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Gift Name</label>
+                        <input type="text" id="giftName" class="form-control" placeholder="e.g. Red Rose" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Emoji / Icon</label>
+                            <input type="text" id="giftIcon" class="form-control" placeholder="🌹" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Coin Cost</label>
+                            <input type="number" id="giftPrice" class="form-control" placeholder="25" required min="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="giftCategory" class="form-control">
+                            <option value="romance">Romance</option>
+                            <option value="fun">Fun</option>
+                            <option value="luxury">Luxury</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('giftModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Gift</button>
                 </div>
             </form>
         </div>
@@ -1000,10 +1119,19 @@
             document.getElementById('toastMsg').innerText = msg;
             document.getElementById('toastIcon').className = isError ? 'fa-solid fa-triangle-exclamation' : 'fa-solid fa-check';
             t.style.display = 'flex';
-            setTimeout(() => { t.style.display = 'none'; }, 3500);
+            setTimeout(() => { t.style.display = 'none'; }, 3200);
         }
 
-        // Fetch Wrapper with Token
+        // Debounce helper for instant smooth searching
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Fetch Wrapper with Token & X-Admin-Token
         async function api(url, options = {}) {
             options.headers = options.headers || {};
             options.headers['Accept'] = 'application/json';
@@ -1035,25 +1163,31 @@
             document.querySelectorAll('.sidebar-menu .nav-item').forEach(el => el.classList.remove('active'));
             event?.currentTarget?.classList.add('active');
 
-            ['dashboard', 'users', 'reports', 'packages', 'subscriptions', 'settings'].forEach(t => {
-                document.getElementById(`tab-${t}`).classList.add('hidden');
+            ['dashboard', 'users', 'wallets', 'calls', 'reports', 'packages', 'gifts', 'subscriptions', 'settings'].forEach(t => {
+                document.getElementById(`tab-${t}`)?.classList.add('hidden');
             });
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`)?.classList.remove('hidden');
 
             const titles = {
                 dashboard: 'Dashboard Overview',
-                users: 'User Moderation',
-                reports: 'Abuse Reports',
-                packages: 'Coin Packages Management',
-                subscriptions: 'Subscriptions',
-                settings: 'System Configuration'
+                users: 'User Accounts & Balances',
+                wallets: 'Financial Transactions Ledger',
+                calls: 'Voice & Video Call History',
+                reports: 'Abuse & Safety Reports',
+                packages: 'In-App Coin Packages',
+                gifts: 'Virtual Gift Catalog',
+                subscriptions: 'VIP Memberships',
+                settings: 'System Pricing & Limits'
             };
-            document.getElementById('pageTitle').innerText = titles[tabId] || 'Admin Panel';
+            document.getElementById('pageTitle').innerText = titles[tabId] || 'Admin Portal';
 
             if (tabId === 'dashboard') loadDashboard();
             if (tabId === 'users') loadUsers();
+            if (tabId === 'wallets') loadWallets();
+            if (tabId === 'calls') loadCalls();
             if (tabId === 'reports') loadReports();
             if (tabId === 'packages') loadPackages();
+            if (tabId === 'gifts') loadGifts();
             if (tabId === 'subscriptions') loadSubscriptions();
             if (tabId === 'settings') loadSettings();
         }
@@ -1102,7 +1236,10 @@
                 document.getElementById('statNewToday').innerText = d.users.new_today;
                 document.getElementById('statMatches').innerText = d.matches.total;
                 document.getElementById('statCalls').innerText = d.calls.completed;
+                document.getElementById('statCallMinutes').innerText = d.calls.total_minutes || 0;
                 document.getElementById('statSubs').innerText = d.subscriptions.active;
+                document.getElementById('statRevenue').innerText = '$' + (d.finance?.total_coin_sales_usd || 0).toFixed(2);
+                document.getElementById('statCirculatingCoins').innerText = d.finance?.total_coins_in_wallets || 0;
                 document.getElementById('statReports').innerText = d.reports.pending;
             } catch (e) {}
         }
@@ -1115,26 +1252,85 @@
                 const res = await api(`${API_BASE}/users?search=${encodeURIComponent(search)}&status=${encodeURIComponent(status)}`);
                 const tbody = document.getElementById('usersTableBody');
                 tbody.innerHTML = '';
-                if (!res.data.length) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">No users found.</td></tr>';
+                const users = res.data?.data || res.data || [];
+                if (!users.length) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">No users found.</td></tr>';
                     return;
                 }
-                res.data.forEach(u => {
+                users.forEach(u => {
                     const statusClass = `badge-${u.status}`;
                     const coins = u.wallet ? u.wallet.balance : 0;
                     const sub = u.active_subscription ? `<span class="badge badge-active">${u.active_subscription.plan ? u.active_subscription.plan.name : 'VIP'}</span>` : '<span style="color: var(--text-muted);">Free</span>';
+                    const displayName = u.name || u.email.split('@')[0];
                     tbody.innerHTML += `
                         <tr>
-                            <td><strong>${u.name || 'Unnamed'}</strong><br><span style="font-size: 11px; color: var(--text-muted);">ID: #${u.id}</span></td>
+                            <td><strong>${displayName}</strong><br><span style="font-size: 11px; color: var(--text-muted);">ID: #${u.id}</span></td>
                             <td>${u.email}</td>
                             <td><span class="badge ${statusClass}">${u.status}</span></td>
                             <td><strong>${coins}</strong> <i class="fa-solid fa-coins" style="color: var(--warning); font-size: 12px;"></i></td>
                             <td>${sub}</td>
-                            <td style="font-size: 12px; color: var(--text-secondary);">${u.last_active_at ? new Date(u.last_active_at).toLocaleDateString() : 'Never'}</td>
+                            <td style="font-size: 12px; color: var(--text-secondary);">${new Date(u.created_at).toLocaleDateString()}</td>
                             <td>
-                                <button class="btn btn-secondary btn-sm" onclick="openWalletModal(${u.id}, '${u.name}')" title="Adjust Coins"><i class="fa-solid fa-coins"></i></button>
+                                <button class="btn btn-secondary btn-sm" onclick="openWalletModal(${u.id}, '${displayName}')" title="Adjust Coins"><i class="fa-solid fa-coins"></i></button>
                                 <button class="btn btn-secondary btn-sm" onclick="openStatusModal(${u.id}, '${u.status}')" title="Change Status"><i class="fa-solid fa-user-gear"></i></button>
                             </td>
+                        </tr>
+                    `;
+                });
+            } catch (e) {}
+        }
+
+        // Financial Ledger
+        async function loadWallets() {
+            try {
+                const res = await api(`${API_BASE}/wallet-transactions`);
+                const tbody = document.getElementById('walletsTableBody');
+                tbody.innerHTML = '';
+                const txs = res.data?.data || res.data || [];
+                if (!txs.length) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">No wallet transactions recorded.</td></tr>';
+                    return;
+                }
+                txs.forEach(t => {
+                    const isCredit = t.amount > 0;
+                    const amountBadge = isCredit ? `<span style="color: var(--success); font-weight: bold;">+${t.amount} 🪙</span>` : `<span style="color: var(--danger); font-weight: bold;">${t.amount} 🪙</span>`;
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><code>#${t.id}</code></td>
+                            <td>User #${t.user_id}</td>
+                            <td><span class="badge badge-active">${t.type}</span></td>
+                            <td>${amountBadge}</td>
+                            <td>${t.balance_before} ➔ <strong>${t.balance_after}</strong></td>
+                            <td style="font-size: 12.5px;">${t.description || '-'}</td>
+                            <td style="font-size: 12px; color: var(--text-secondary);">${new Date(t.created_at).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            } catch (e) {}
+        }
+
+        // Call Records
+        async function loadCalls() {
+            try {
+                const res = await api(`${API_BASE}/calls`);
+                const tbody = document.getElementById('callsTableBody');
+                tbody.innerHTML = '';
+                const calls = res.data || [];
+                if (!calls.length) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 25px;">No calls recorded yet.</td></tr>';
+                    return;
+                }
+                calls.forEach(c => {
+                    const durationMins = Math.ceil((c.duration_seconds || 0) / 60);
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>User #${c.caller_id}</td>
+                            <td>User #${c.receiver_id}</td>
+                            <td><span class="badge badge-active">${c.type}</span></td>
+                            <td>${c.duration_seconds || 0}s (${durationMins}m)</td>
+                            <td><strong>${c.total_cost || 0}</strong> 🪙</td>
+                            <td><span class="badge badge-${c.status === 'ended' ? 'resolved' : 'pending'}">${c.status}</span></td>
+                            <td style="font-size: 12px;">${new Date(c.created_at).toLocaleString()}</td>
                         </tr>
                     `;
                 });
@@ -1148,15 +1344,16 @@
                 const res = await api(`${API_BASE}/reports?status=${encodeURIComponent(status)}`);
                 const tbody = document.getElementById('reportsTableBody');
                 tbody.innerHTML = '';
-                if (!res.data.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No reports found.</td></tr>';
+                const reports = res.data?.data || res.data || [];
+                if (!reports.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 25px;">No reports found.</td></tr>';
                     return;
                 }
-                res.data.forEach(r => {
+                reports.forEach(r => {
                     tbody.innerHTML += `
                         <tr>
-                            <td>${r.reporter_name || 'User #' + r.reporter_id}</td>
-                            <td><strong>${r.reported_name || 'User #' + r.reported_id}</strong></td>
+                            <td>User #${r.reporter_id}</td>
+                            <td><strong>User #${r.reported_id}</strong></td>
                             <td>${r.reason}</td>
                             <td><span class="badge badge-${r.status}">${r.status}</span></td>
                             <td style="font-size: 12px;">${new Date(r.created_at).toLocaleDateString()}</td>
@@ -1191,24 +1388,49 @@
             } catch (e) {}
         }
 
+        // Virtual Gifts
+        async function loadGifts() {
+            try {
+                const res = await api(`${API_BASE}/gifts`);
+                const tbody = document.getElementById('giftsTableBody');
+                tbody.innerHTML = '';
+                res.data.forEach(g => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="font-size: 22px;">${g.icon_url}</td>
+                            <td><strong>${g.name}</strong></td>
+                            <td>${g.coin_price} 🪙</td>
+                            <td><span class="badge badge-active">${g.category || 'Standard'}</span></td>
+                            <td><span class="badge badge-active">Active</span></td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="deleteGift(${g.id})"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (e) {}
+        }
+
         // Subscriptions
         async function loadSubscriptions() {
             try {
                 const res = await api(`${API_BASE}/subscriptions`);
                 const tbody = document.getElementById('subsTableBody');
                 tbody.innerHTML = '';
-                if (!res.data.length) {
-                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">No active subscriptions.</td></tr>';
+                const subs = res.data?.data || res.data || [];
+                if (!subs.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 25px;">No active subscriptions.</td></tr>';
                     return;
                 }
-                res.data.forEach(s => {
+                subs.forEach(s => {
                     tbody.innerHTML += `
                         <tr>
                             <td>User #${s.user_id}</td>
-                            <td><span class="badge badge-active">${s.plan ? s.plan.name : 'Premium'}</span></td>
-                            <td><span class="badge badge-${s.status}">${s.status}</span></td>
+                            <td><span class="badge badge-active">${s.plan ? s.plan.name : 'VIP Gold'}</span></td>
+                            <td><code>${s.order_id || 'Direct'}</code></td>
                             <td>${s.starts_at ? new Date(s.starts_at).toLocaleDateString() : '-'}</td>
                             <td>${s.ends_at ? new Date(s.ends_at).toLocaleDateString() : '-'}</td>
+                            <td><span class="badge badge-${s.status}">${s.status}</span></td>
                         </tr>
                     `;
                 });
@@ -1271,6 +1493,7 @@
                 closeModal('walletModal');
                 showToast('Wallet balance adjusted successfully.');
                 loadUsers();
+                loadDashboard();
             } catch (err) {
                 showToast(err.message, true);
             }
@@ -1328,7 +1551,6 @@
         }
 
         function openPackageModal() {
-            document.getElementById('pkgId').value = '';
             document.getElementById('pkgName').value = '';
             document.getElementById('pkgCoins').value = '';
             document.getElementById('pkgBonus').value = '0';
@@ -1367,6 +1589,47 @@
                 await api(`${API_BASE}/coin-packages/${id}`, { method: 'DELETE' });
                 showToast('Package deleted.');
                 loadPackages();
+            } catch (err) {
+                showToast(err.message, true);
+            }
+        }
+
+        function openGiftModal() {
+            document.getElementById('giftName').value = '';
+            document.getElementById('giftIcon').value = '🌹';
+            document.getElementById('giftPrice').value = '25';
+            document.getElementById('giftModal').style.display = 'flex';
+        }
+
+        async function handleGiftSave(e) {
+            e.preventDefault();
+            const payload = {
+                name: document.getElementById('giftName').value,
+                icon_url: document.getElementById('giftIcon').value,
+                coin_price: parseInt(document.getElementById('giftPrice').value),
+                category: document.getElementById('giftCategory').value,
+                is_active: true
+            };
+
+            try {
+                await api(`${API_BASE}/gifts`, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                closeModal('giftModal');
+                showToast('Virtual gift created.');
+                loadGifts();
+            } catch (err) {
+                showToast(err.message, true);
+            }
+        }
+
+        async function deleteGift(id) {
+            if (!confirm('Are you sure you want to delete this gift?')) return;
+            try {
+                await api(`${API_BASE}/gifts/${id}`, { method: 'DELETE' });
+                showToast('Gift deleted.');
+                loadGifts();
             } catch (err) {
                 showToast(err.message, true);
             }

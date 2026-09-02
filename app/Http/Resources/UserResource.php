@@ -11,7 +11,7 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->profile?->first_name ? trim($this->profile->first_name . ' ' . ($this->profile->last_name ?? '')) : ($this->name ?: explode('@', $this->email)[0]),
             'email' => $this->email,
             'status' => $this->status,
             'email_verified_at' => $this->email_verified_at?->toIso8601String(),
