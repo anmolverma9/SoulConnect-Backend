@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->unsignedSmallInteger('duration_minutes')->default(30);
-            $table->timestamp('started_at')->useCurrent();
-            $table->timestamp('expires_at')->index();
+            $table->dateTime('started_at')->useCurrent();
+            $table->dateTime('expires_at')->index();
             $table->unsignedInteger('coin_cost')->default(0);
             $table->enum('status', ['active', 'expired', 'cancelled'])->default('active')->index();
             $table->timestamps();

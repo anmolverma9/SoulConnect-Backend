@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreignId('rule_id')->nullable()->constrained('engagement_rules')->nullOnDelete();
             $table->string('event_type', 64)->index();
             $table->json('payload')->nullable();
-            $table->timestamp('triggered_at')->useCurrent();
+            $table->dateTime('triggered_at')->useCurrent();
             $table->enum('status', ['pending', 'sent', 'skipped', 'failed'])->default('pending')->index();
             $table->timestamps();
 
