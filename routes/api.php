@@ -156,6 +156,7 @@ Route::prefix('v1')->group(function () {
         Route::post('calls/{call}/accept', [CallController::class, 'accept']);
         Route::post('calls/{call}/reject', [CallController::class, 'reject']);
         Route::post('calls/{call}/end', [CallController::class, 'end']);
+        Route::get('simulated-call/random-caller', [\App\Http\Controllers\Api\V1\SimulatedCallController::class, 'randomCaller']);
 
         // Wallet & Transactions
         Route::get('wallet', [WalletController::class, 'show']);
