@@ -110,7 +110,7 @@
     @if($messages->hasPages())
     <div class="pagination">
         <div>Showing {{ $messages->firstItem() }} to {{ $messages->lastItem() }} of {{ $messages->total() }} templates</div>
-        <div>{{ $messages->links() }}</div>
+        <div>{{ $messages->appends(request()->query())->links() }}</div>
     </div>
     @endif
 </div>

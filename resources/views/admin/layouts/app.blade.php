@@ -477,14 +477,74 @@
             gap: 10px;
         }
         .alert-success { background: var(--success-light); color: var(--success); border: 1px solid var(--success); }
-        .alert-danger { background: var(--danger-light); color: var(--danger); border: 1px solid var(--danger); }
-
-        .pagination {
+        /* Complete Pagination Styling */
+        .pagination-container, .pagination {
             display: flex;
             padding: 16px 20px;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        nav[role="navigation"] {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        nav[role="navigation"] svg {
+            width: 14px !important;
+            height: 14px !important;
+            max-width: 14px !important;
+            max-height: 14px !important;
+            display: inline-block !important;
+            vertical-align: middle;
+        }
+
+        nav[role="navigation"] > div:first-child {
+            display: none; /* Hide default raw Tailwind text */
+        }
+
+        nav[role="navigation"] span, 
+        nav[role="navigation"] a {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+            background: var(--bg-surface) !important;
+            color: var(--text-primary) !important;
+            text-decoration: none !important;
+            font-size: 12.5px !important;
+            font-weight: 500 !important;
+            min-height: 32px;
+            box-shadow: none !important;
+        }
+
+        nav[role="navigation"] span[aria-current="page"] > span,
+        nav[role="navigation"] span[aria-current="page"],
+        nav[role="navigation"] .active span {
+            background: var(--primary) !important;
+            color: #ffffff !important;
+            border-color: var(--primary) !important;
+            font-weight: 700 !important;
+        }
+
+        nav[role="navigation"] a:hover {
+            background: var(--primary-light) !important;
+            color: var(--primary) !important;
+            border-color: var(--primary) !important;
+        }
+
+        nav[role="navigation"] span[aria-disabled="true"] {
+            opacity: 0.45;
+            cursor: not-allowed;
         }
     </style>
 </head>

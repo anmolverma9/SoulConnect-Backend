@@ -426,7 +426,15 @@ class AdminWebController extends Controller
      */
     public function settings(): View
     {
-        $settings = AdminSetting::all()->pluck('value', 'key')->toArray();
+        $settings = [];
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('admin_settings')) {
+                $settings = AdminSetting::all()->pluck('value', 'key')->toArray();
+            }
+        } catch (\Exception $e) {
+            $settings = [];
+        }
+
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -437,8 +445,14 @@ class AdminWebController extends Controller
     {
         $data = $request->except('_token');
 
-        foreach ($data as $key => $value) {
-            AdminSetting::updateOrCreate(['key' => $key], ['value' => $value]);
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('admin_settings')) {
+                foreach ($data as $key => $value) {
+                    AdminSetting::updateOrCreate(['key' => $key], ['value' => $value]);
+                }
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'Please run php artisan migrate first to create settings table.');
         }
 
         return back()->with('success', 'System settings saved successfully.');
