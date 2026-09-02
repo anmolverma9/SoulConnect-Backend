@@ -73,7 +73,7 @@ class BotEngagementSeeder extends Seeder
 
             Wallet::firstOrCreate(
                 ['user_id' => $user->id],
-                ['balance' => 500, 'currency' => 'INR']
+                ['balance' => 500]
             );
 
             // Dummy primary photo
