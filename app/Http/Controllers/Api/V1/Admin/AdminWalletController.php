@@ -48,7 +48,7 @@ class AdminWalletController extends Controller
     {
         $amount = (int) $request->input('amount');
         $reason = $request->input('reason');
-        $admin = $request->user('admin');
+        $admin = $request->user();
 
         $transaction = null;
 

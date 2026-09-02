@@ -39,7 +39,7 @@ class AdminReportController extends Controller
      */
     public function review(ReviewReportRequest $request, Report $report): JsonResponse
     {
-        $admin = $request->user('admin');
+        $admin = $request->user();
 
         $report->update([
             'status' => $request->input('status'),

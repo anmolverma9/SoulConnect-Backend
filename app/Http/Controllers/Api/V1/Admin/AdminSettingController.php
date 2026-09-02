@@ -32,7 +32,7 @@ class AdminSettingController extends Controller
     public function update(UpdateSettingRequest $request): JsonResponse
     {
         $settings = $request->input('settings');
-        $admin = $request->user('admin');
+        $admin = $request->user();
 
         foreach ($settings as $item) {
             AppSetting::set($item['key'], $item['value']);

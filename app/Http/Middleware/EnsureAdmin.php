@@ -14,9 +14,9 @@ class EnsureAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $admin = $request->user('admin');
+        $admin = $request->user();
 
-        if (! $admin || ! $admin->is_active) {
+        if (! $admin || ! ($admin instanceof \App\Models\AdminUser) || ! $admin->is_active) {
             return ApiResponse::unauthorized('Unauthorized admin access.');
         }
 

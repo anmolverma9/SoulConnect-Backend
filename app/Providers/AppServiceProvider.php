@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('admin', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user('admin')?->id ?: $request->ip());
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
         RateLimiter::for('likes', function (Request $request) {

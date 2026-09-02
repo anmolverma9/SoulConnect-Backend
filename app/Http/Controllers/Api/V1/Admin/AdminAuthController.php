@@ -50,7 +50,7 @@ class AdminAuthController extends Controller
      */
     public function me(Request $request): JsonResponse
     {
-        return ApiResponse::success(new AdminUserResource($request->user('admin')));
+        return ApiResponse::success(new AdminUserResource($request->user()));
     }
 
     /**
@@ -58,7 +58,7 @@ class AdminAuthController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        $admin = $request->user('admin');
+        $admin = $request->user();
         $admin->currentAccessToken()?->delete();
 
         $this->auditService->log($admin, 'admin_logout', 'AdminUser', $admin->id, [], $request);

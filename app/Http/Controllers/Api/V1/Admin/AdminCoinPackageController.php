@@ -35,7 +35,7 @@ class AdminCoinPackageController extends Controller
         $package = CoinPackage::create($request->validated());
 
         $this->auditService->log(
-            $request->user('admin'),
+            $request->user(),
             'create_coin_package',
             'CoinPackage',
             $package->id,
@@ -54,7 +54,7 @@ class AdminCoinPackageController extends Controller
         $package->update($request->validated());
 
         $this->auditService->log(
-            $request->user('admin'),
+            $request->user(),
             'update_coin_package',
             'CoinPackage',
             $package->id,
@@ -73,7 +73,7 @@ class AdminCoinPackageController extends Controller
         $package->delete();
 
         $this->auditService->log(
-            $request->user('admin'),
+            $request->user(),
             'delete_coin_package',
             'CoinPackage',
             $package->id,

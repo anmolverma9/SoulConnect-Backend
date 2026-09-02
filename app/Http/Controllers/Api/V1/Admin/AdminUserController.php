@@ -73,7 +73,7 @@ class AdminUserController extends Controller
             $user->tokens()->delete();
         }
 
-        $admin = $request->user('admin');
+        $admin = $request->user();
         $this->auditService->log(
             $admin,
             'user_status_update',
