@@ -58,7 +58,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::post('login', [AdminAuthController::class, 'login'])->middleware('throttle:admin');
 
-        Route::middleware(['auth:sanctum', 'admin.auth'])->group(function () {
+        Route::middleware(['admin.auth'])->group(function () {
             Route::get('me', [AdminAuthController::class, 'me']);
             Route::post('logout', [AdminAuthController::class, 'logout']);
 

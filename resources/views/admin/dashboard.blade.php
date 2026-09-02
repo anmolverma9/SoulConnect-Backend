@@ -1010,6 +1010,7 @@
             options.headers['Content-Type'] = 'application/json';
             if (authToken) {
                 options.headers['Authorization'] = `Bearer ${authToken}`;
+                options.headers['X-Admin-Token'] = authToken;
             }
 
             const res = await fetch(url, options);
