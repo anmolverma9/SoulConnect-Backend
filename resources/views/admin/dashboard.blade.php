@@ -1044,6 +1044,88 @@
         </div>
     </div>
 
+    <!-- MODAL: VIEW USER DETAILS -->
+    <div id="viewUserModal" class="modal-overlay">
+        <div class="modal" style="max-width: 580px;">
+            <div class="modal-header">
+                <h3 style="font-size: 15px; font-weight: 600;">User Profile Dossier</h3>
+                <button onclick="closeModal('viewUserModal')" style="background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted);">&times;</button>
+            </div>
+            <div class="modal-body" id="viewUserContent" style="max-height: 70vh; overflow-y: auto;">
+                Loading...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('viewUserModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: EDIT USER -->
+    <div id="editUserModal" class="modal-overlay">
+        <div class="modal" style="max-width: 550px;">
+            <div class="modal-header">
+                <h3 style="font-size: 15px; font-weight: 600;">Edit User Account</h3>
+                <button onclick="closeModal('editUserModal')" style="background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted);">&times;</button>
+            </div>
+            <form onsubmit="handleUserEdit(event)">
+                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                    <input type="hidden" id="editUserId">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="editFirstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="editLastName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="editEmail" class="form-control" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="editGender" class="form-control">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="non_binary">Non-Binary</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Status</label>
+                            <select id="editStatus" class="form-control">
+                                <option value="active">Active</option>
+                                <option value="suspended">Suspended</option>
+                                <option value="banned">Banned</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" id="editCity" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Occupation</label>
+                            <input type="text" id="editOccupation" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea id="editBio" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editUserModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL: ADD VIRTUAL GIFT -->
     <div id="giftModal" class="modal-overlay">
         <div class="modal">
@@ -1261,7 +1343,7 @@
                     const statusClass = `badge-${u.status}`;
                     const coins = u.wallet ? u.wallet.balance : 0;
                     const sub = u.active_subscription ? `<span class="badge badge-active">${u.active_subscription.plan ? u.active_subscription.plan.name : 'VIP'}</span>` : '<span style="color: var(--text-muted);">Free</span>';
-                    const displayName = u.name || u.email.split('@')[0];
+                    const displayName = u.name || (u.profile?.first_name ? (u.profile.first_name + ' ' + (u.profile.last_name || '')) : u.email.split('@')[0]);
                     tbody.innerHTML += `
                         <tr>
                             <td><strong>${displayName}</strong><br><span style="font-size: 11px; color: var(--text-muted);">ID: #${u.id}</span></td>
@@ -1270,14 +1352,144 @@
                             <td><strong>${coins}</strong> <i class="fa-solid fa-coins" style="color: var(--warning); font-size: 12px;"></i></td>
                             <td>${sub}</td>
                             <td style="font-size: 12px; color: var(--text-secondary);">${new Date(u.created_at).toLocaleDateString()}</td>
-                            <td>
+                            <td style="white-space: nowrap;">
+                                <button class="btn btn-secondary btn-sm" onclick="viewUser(${u.id})" title="View Details"><i class="fa-solid fa-eye"></i></button>
+                                <button class="btn btn-secondary btn-sm" onclick="openEditUserModal(${u.id})" title="Edit User"><i class="fa-solid fa-pen-to-square"></i></button>
                                 <button class="btn btn-secondary btn-sm" onclick="openWalletModal(${u.id}, '${displayName}')" title="Adjust Coins"><i class="fa-solid fa-coins"></i></button>
                                 <button class="btn btn-secondary btn-sm" onclick="openStatusModal(${u.id}, '${u.status}')" title="Change Status"><i class="fa-solid fa-user-gear"></i></button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id}, '${displayName}')" title="Delete Account"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                     `;
                 });
             } catch (e) {}
+        }
+
+        async function viewUser(userId) {
+            document.getElementById('viewUserModal').style.display = 'flex';
+            document.getElementById('viewUserContent').innerHTML = '<div style="text-align:center; padding: 20px;">Loading profile dossier...</div>';
+            try {
+                const res = await api(`${API_BASE}/users/${userId}`);
+                const u = res.data;
+                const p = u.profile || {};
+                const w = u.wallet || { balance: 0 };
+                const sub = u.active_subscription ? (u.active_subscription.plan?.name || 'VIP Active') : 'Free Tier';
+                const devices = (u.devices || []).map(d => `<span class="badge badge-active">${d.platform}: ${d.device_name || 'Device'}</span>`).join(' ') || 'None';
+
+                document.getElementById('viewUserContent').innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                        <div style="width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold;">
+                            ${(u.name || u.email)[0].toUpperCase()}
+                        </div>
+                        <div>
+                            <h3 style="font-size: 17px; font-weight: 700;">${u.name || 'Unnamed User'}</h3>
+                            <div style="font-size: 13px; color: var(--text-secondary);">${u.email} • ID: #${u.id}</div>
+                            <div style="margin-top: 4px;"><span class="badge badge-${u.status}">${u.status.toUpperCase()}</span> <span class="badge badge-active">${sub}</span></div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                        <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Wallet Balance</span>
+                            <div style="font-size: 18px; font-weight: bold; margin-top: 2px;">${w.balance} 🪙</div>
+                        </div>
+                        <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Gender & Age</span>
+                            <div style="font-size: 15px; font-weight: 600; margin-top: 2px;">${p.gender || 'Not specified'} • ${p.age ? p.age + ' yrs' : '-'}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 14px;">
+                        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Bio</label>
+                        <div style="font-size: 13.5px; background: var(--bg-primary); padding: 10px; border-radius: 8px; margin-top: 4px;">
+                            ${p.bio || 'No bio written yet.'}
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                        <div>
+                            <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Location</label>
+                            <div style="font-size: 13px;">${p.city || '-'}, ${p.country || '-'}</div>
+                        </div>
+                        <div>
+                            <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Occupation</label>
+                            <div style="font-size: 13px;">${p.occupation || '-'}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 14px;">
+                        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Registered Devices</label>
+                        <div style="margin-top: 4px;">${devices}</div>
+                    </div>
+
+                    <div style="display: flex; gap: 8px; margin-top: 20px;">
+                        <button class="btn btn-primary btn-sm" onclick="closeModal('viewUserModal'); openEditUserModal(${u.id});"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+                        <button class="btn btn-secondary btn-sm" onclick="closeModal('viewUserModal'); openWalletModal(${u.id}, '${u.name || u.email}');"><i class="fa-solid fa-coins"></i> Adjust Coins</button>
+                    </div>
+                `;
+            } catch (err) {
+                document.getElementById('viewUserContent').innerHTML = '<div style="color: var(--danger); padding: 20px;">Failed to load user dossier.</div>';
+            }
+        }
+
+        async function openEditUserModal(userId) {
+            try {
+                const res = await api(`${API_BASE}/users/${userId}`);
+                const u = res.data;
+                const p = u.profile || {};
+                document.getElementById('editUserId').value = u.id;
+                document.getElementById('editFirstName').value = p.first_name || (u.name ? u.name.split(' ')[0] : '');
+                document.getElementById('editLastName').value = p.last_name || (u.name && u.name.includes(' ') ? u.name.substring(u.name.indexOf(' ') + 1) : '');
+                document.getElementById('editEmail').value = u.email;
+                document.getElementById('editGender').value = p.gender || 'male';
+                document.getElementById('editStatus').value = u.status || 'active';
+                document.getElementById('editCity').value = p.city || '';
+                document.getElementById('editOccupation').value = p.occupation || '';
+                document.getElementById('editBio').value = p.bio || '';
+                document.getElementById('editUserModal').style.display = 'flex';
+            } catch (err) {
+                showToast('Failed to load user for editing', true);
+            }
+        }
+
+        async function handleUserEdit(e) {
+            e.preventDefault();
+            const userId = document.getElementById('editUserId').value;
+            const payload = {
+                first_name: document.getElementById('editFirstName').value,
+                last_name: document.getElementById('editLastName').value,
+                email: document.getElementById('editEmail').value,
+                gender: document.getElementById('editGender').value,
+                status: document.getElementById('editStatus').value,
+                city: document.getElementById('editCity').value,
+                occupation: document.getElementById('editOccupation').value,
+                bio: document.getElementById('editBio').value
+            };
+
+            try {
+                await api(`${API_BASE}/users/${userId}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(payload)
+                });
+                closeModal('editUserModal');
+                showToast('User profile updated successfully.');
+                loadUsers();
+            } catch (err) {
+                showToast(err.message, true);
+            }
+        }
+
+        async function deleteUser(userId, name) {
+            if (!confirm(`Are you sure you want to delete user "${name}" (#${userId})? This will anonymize their data and revoke all sessions.`)) return;
+
+            try {
+                await api(`${API_BASE}/users/${userId}`, { method: 'DELETE' });
+                showToast('User deleted.');
+                loadUsers();
+                loadDashboard();
+            } catch (err) {
+                showToast(err.message, true);
+            }
         }
 
         // Financial Ledger

@@ -68,6 +68,8 @@ Route::prefix('v1')->group(function () {
             // User moderation
             Route::get('users', [AdminUserController::class, 'index']);
             Route::get('users/{user}', [AdminUserController::class, 'show']);
+            Route::put('users/{user}', [AdminUserController::class, 'update']);
+            Route::delete('users/{user}', [AdminUserController::class, 'destroy']);
             Route::patch('users/{user}/status', [AdminUserController::class, 'updateStatus']);
             Route::post('users/{user}/wallet/adjust', [AdminWalletController::class, 'adjust']);
 
