@@ -41,10 +41,6 @@ class AuthController extends Controller
             $request->only(['device_id', 'platform', 'device_name', 'app_version', 'fcm_token'])
         );
 
-        if ($authData['is_new_user']) {
-            \App\Services\Bot\EngagementService::engageNewUser($authData['user']);
-        }
-
         return ApiResponse::success([
             'token' => $authData['token'],
             'is_new_user' => $authData['is_new_user'],
