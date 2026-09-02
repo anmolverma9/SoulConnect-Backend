@@ -24,12 +24,6 @@ class ConversationController extends Controller
         $perPage = min(50, max(1, (int) $request->query('per_page', 20)));
         $user = $request->user();
 
-        // If user has fewer than 8 conversations, auto-engage with female bot profiles
-        $convCount = \App\Models\ConversationParticipant::where('user_id', $user->id)->count();
-        if ($convCount < 8) {
-            \App\Services\Bot\EngagementService::engageNewUser($user);
-        }
-
         $conversations = $this->chatService->getUserConversations($user, $perPage);
 
         return ApiResponse::paginated(ConversationResource::collection($conversations));
