@@ -26,18 +26,30 @@ class SpacePayService
     }
 
     /**
-     * Initiate a SpacePay payment order for coin package or VIP
+     * Initiate a SpacePay payment order for coin package
      */
     public function initiateCoinPurchase(User $user, int $packageId, ?string $mobile = null): PaymentOrder
     {
         $package = CoinPackage::find($packageId);
         if (!$package) {
-            throw new ApiException('Selected coin package not found.', 404);
+            $tiers = [
+                1 => ['name' => 'Starter Pack', 'coins' => 100, 'bonus' => 0, 'price' => 99.0],
+                2 => ['name' => 'Popular Pack', 'coins' => 300, 'bonus' => 50, 'price' => 249.0],
+                3 => ['name' => 'Best Value Pack', 'coins' => 700, 'bonus' => 150, 'price' => 499.0],
+                4 => ['name' => 'Mega Pack', 'coins' => 1600, 'bonus' => 400, 'price' => 999.0],
+                5 => ['name' => 'VIP Whale Pack', 'coins' => 3800, 'bonus' => 1200, 'price' => 1999.0],
+            ];
+            $tier = $tiers[$packageId] ?? $tiers[1];
+            $totalCoins = $tier['coins'] + $tier['bonus'];
+            $amount = (float) $tier['price'];
+            $currency = 'INR';
+        } else {
+            $totalCoins = $package->coins + $package->bonus_coins;
+            $amount = (float) $package->price;
+            $currency = $package->currency ?: 'INR';
         }
 
-        $totalCoins = $package->coins + $package->bonus_coins;
         $orderId = 'ORD_SC_' . time() . '_' . $user->id . '_' . rand(100, 999);
-        $amount = (float) $package->price;
         $customerMobile = $mobile ?: ($user->phone ?: '9999999999');
         $redirectUrl = url('/api/v1/payments/spacepay/callback?order_id=' . $orderId);
 
@@ -47,9 +59,9 @@ class SpacePayService
             'order_id' => $orderId,
             'gateway' => 'spacepay',
             'type' => 'coin_package',
-            'package_id' => $package->id,
+            'package_id' => $packageId,
             'amount' => $amount,
-            'currency' => $package->currency ?: 'INR',
+            'currency' => $currency,
             'coins_to_credit' => $totalCoins,
             'status' => 'pending',
         ]);
@@ -69,7 +81,7 @@ class SpacePayService
             $response = Http::timeout(15)->post("{$this->baseUrl}/pay", $payload);
             $data = $response->json();
 
-            Log::info('SpacePay Pay API Response', ['orderId' => $orderId, 'response' => $data]);
+            Log::info('SpacePay Pay API Response', ['orderId' => $orderId, 'payload_sent' => $payload, 'response' => $data]);
 
             if ($response->successful() && !empty($data['status']) && !empty($data['result']['payment_url'])) {
                 $order->update([
@@ -81,15 +93,16 @@ class SpacePayService
                 return $order;
             }
 
+            $errMsg = $data['message'] ?? 'Failed to create payment session with SpacePay.';
             $order->update([
                 'status' => 'failed',
                 'response_payload' => $data,
             ]);
 
-            throw new ApiException($data['message'] ?? 'Failed to create payment session with SpacePay.', 400);
+            throw new ApiException($errMsg, 400);
         } catch (\Exception $e) {
             Log::error('SpacePay Pay Request Error: ' . $e->getMessage(), ['order_id' => $orderId]);
-            throw new ApiException('SpacePay Payment Gateway connection error: ' . $e->getMessage(), 500);
+            throw new ApiException('SpacePay Gateway Error: ' . $e->getMessage(), 500);
         }
     }
 

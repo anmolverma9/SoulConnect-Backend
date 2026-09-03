@@ -24,7 +24,7 @@ class SpacePayController extends Controller
     public function initiate(Request $request): JsonResponse
     {
         $request->validate([
-            'package_id' => 'required|integer|exists:coin_packages,id',
+            'package_id' => 'required|integer',
             'mobile' => 'nullable|string|min:10|max:15',
         ]);
 
