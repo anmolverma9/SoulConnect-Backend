@@ -1,168 +1,70 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Users & Profiles Management')
-@section('page_title', 'Users & Profiles Management')
+@section('title', 'Users & Profiles')
+@section('page_title', 'Users & Profiles')
 
 @section('content')
-    <!-- Top Summary Metric Cards -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px;">
-        <a href="{{ route('admin.users', ['user_type' => 'real']) }}" style="text-decoration: none;">
-            <div class="card" style="padding: 16px 20px; display: flex; align-items: center; gap: 16px; border-left: 4px solid var(--primary); transition: transform 0.2s; cursor: pointer;">
-                <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                    <i class="fa-solid fa-user-check"></i>
-                </div>
-                <div>
-                    <div style="font-size: 11.5px; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Real Registered Users</div>
-                    <div style="font-size: 22px; font-weight: 800; color: var(--text-primary); margin-top: 2px;">{{ number_format($metrics['total_real']) }}</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="{{ route('admin.users', ['user_type' => 'bots']) }}" style="text-decoration: none;">
-            <div class="card" style="padding: 16px 20px; display: flex; align-items: center; gap: 16px; border-left: 4px solid #8B5CF6; transition: transform 0.2s; cursor: pointer;">
-                <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(139, 92, 246, 0.12); color: #8B5CF6; display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                    <i class="fa-solid fa-robot"></i>
-                </div>
-                <div>
-                    <div style="font-size: 11.5px; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">AI Simulated Bots</div>
-                    <div style="font-size: 22px; font-weight: 800; color: var(--text-primary); margin-top: 2px;">{{ number_format($metrics['total_bots']) }}</div>
-                </div>
-            </div>
-        </a>
-
-        <div class="card" style="padding: 16px 20px; display: flex; align-items: center; gap: 16px; border-left: 4px solid var(--warning);">
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--warning-light); color: var(--warning); display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                <i class="fa-solid fa-crown"></i>
-            </div>
-            <div>
-                <div style="font-size: 11.5px; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">VIP Subscribers</div>
-                <div style="font-size: 22px; font-weight: 800; color: var(--text-primary); margin-top: 2px;">{{ number_format($metrics['total_vip']) }}</div>
-            </div>
-        </div>
-
-        <div class="card" style="padding: 16px 20px; display: flex; align-items: center; gap: 16px; border-left: 4px solid #10B981;">
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(16, 185, 129, 0.12); color: #10B981; display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                <i class="fa-solid fa-coins"></i>
-            </div>
-            <div>
-                <div style="font-size: 11.5px; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Coins In Wallets</div>
-                <div style="font-size: 22px; font-weight: 800; color: var(--text-primary); margin-top: 2px;">{{ number_format($metrics['circulating_coins']) }} 🪙</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Filter & Control Center -->
-    <div class="card" style="margin-bottom: 24px;">
-        <div style="padding: 18px 24px; border-bottom: 1px solid var(--border-color);">
-            <!-- User Type Segmented Switcher -->
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-                <div style="display: inline-flex; background: var(--bg-primary); padding: 4px; border-radius: 12px; border: 1px solid var(--border-color);">
-                    <a href="{{ route('admin.users', array_merge(request()->query(), ['user_type' => 'real'])) }}" 
-                       style="padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s; {{ $userType === 'real' ? 'background: var(--primary); color: white; box-shadow: 0 2px 6px rgba(236,72,153,0.3);' : 'color: var(--text-secondary);' }}">
-                        <i class="fa-solid fa-user"></i> Real Users ({{ $metrics['total_real'] }})
-                    </a>
-
-                    <a href="{{ route('admin.users', array_merge(request()->query(), ['user_type' => 'bots'])) }}" 
-                       style="padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s; {{ $userType === 'bots' ? 'background: #8B5CF6; color: white; box-shadow: 0 2px 6px rgba(139,92,246,0.3);' : 'color: var(--text-secondary);' }}">
-                        <i class="fa-solid fa-robot"></i> AI Bots Only ({{ $metrics['total_bots'] }})
-                    </a>
-
-                    <a href="{{ route('admin.users', array_merge(request()->query(), ['user_type' => 'all'])) }}" 
-                       style="padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s; {{ $userType === 'all' ? 'background: var(--text-primary); color: white;' : 'color: var(--text-secondary);' }}">
-                        <i class="fa-solid fa-users"></i> All ({{ $metrics['total_real'] + $metrics['total_bots'] }})
-                    </a>
-                </div>
-
-                <div style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
-                    Showing <strong style="color: var(--text-primary);">{{ $users->total() }}</strong> accounts
-                </div>
+    <div class="card">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 16px 20px;">
+            <div style="font-size: 15px; font-weight: 600; color: var(--text-primary);">
+                All Users <span style="font-size: 13px; font-weight: normal; color: var(--text-muted);">({{ number_format($users->total()) }} total)</span>
             </div>
 
-            <!-- Advanced Filter Controls Form -->
-            <form action="{{ route('admin.users') }}" method="GET" style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: center;">
-                <input type="hidden" name="user_type" value="{{ $userType }}">
-
+            <!-- Simple, Professional Filter Bar -->
+            <form action="{{ route('admin.users') }}" method="GET" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                 <!-- Search Input -->
-                <div class="input-group" style="grid-column: span 2; min-width: 260px;">
+                <div class="input-group" style="width: 220px;">
                     <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
-                    <input type="text" name="search" placeholder="Search name, email, or city..." value="{{ request('search') }}">
+                    <input type="text" name="search" placeholder="Search name or email..." value="{{ request('search') }}">
+                </div>
+
+                <!-- Account Type (Real vs Bots) -->
+                <div class="input-group" style="width: 140px;">
+                    <select name="user_type" onchange="this.form.submit()">
+                        <option value="real" {{ $userType === 'real' ? 'selected' : '' }}>Real Users Only</option>
+                        <option value="bots" {{ $userType === 'bots' ? 'selected' : '' }}>Bots Only</option>
+                        <option value="all" {{ $userType === 'all' ? 'selected' : '' }}>All Accounts</option>
+                    </select>
                 </div>
 
                 <!-- Status Filter -->
-                <div class="input-group">
+                <div class="input-group" style="width: 130px;">
                     <select name="status" onchange="this.form.submit()">
                         <option value="">All Statuses</option>
-                        <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>🟢 Active</option>
-                        <option value="suspended" {{ request('status') === 'suspended' ? 'selected' : '' }}>🟡 Suspended</option>
-                        <option value="banned" {{ request('status') === 'banned' ? 'selected' : '' }}>🔴 Banned</option>
+                        <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="suspended" {{ request('status') === 'suspended' ? 'selected' : '' }}>Suspended</option>
+                        <option value="banned" {{ request('status') === 'banned' ? 'selected' : '' }}>Banned</option>
                     </select>
                 </div>
 
-                <!-- Gender Filter -->
-                <div class="input-group">
-                    <select name="gender" onchange="this.form.submit()">
-                        <option value="">All Genders</option>
-                        <option value="female" {{ request('gender') === 'female' ? 'selected' : '' }}>👩 Female</option>
-                        <option value="male" {{ request('gender') === 'male' ? 'selected' : '' }}>👨 Male</option>
-                        <option value="non_binary" {{ request('gender') === 'non_binary' ? 'selected' : '' }}>🧑 Non-Binary</option>
-                    </select>
-                </div>
-
-                <!-- VIP Tier Filter -->
-                <div class="input-group">
+                <!-- VIP Filter -->
+                <div class="input-group" style="width: 120px;">
                     <select name="vip" onchange="this.form.submit()">
-                        <option value="">All Memberships</option>
-                        <option value="vip" {{ request('vip') === 'vip' ? 'selected' : '' }}>⭐ VIP Subscribers</option>
-                        <option value="free" {{ request('vip') === 'free' ? 'selected' : '' }}>Free Tier Only</option>
+                        <option value="">All Tiers</option>
+                        <option value="vip" {{ request('vip') === 'vip' ? 'selected' : '' }}>VIP Members</option>
+                        <option value="free" {{ request('vip') === 'free' ? 'selected' : '' }}>Free Tier</option>
                     </select>
                 </div>
 
-                <!-- Coin Balance Filter -->
-                <div class="input-group">
-                    <select name="coins" onchange="this.form.submit()">
-                        <option value="">All Coin Balances</option>
-                        <option value="positive" {{ request('coins') === 'positive' ? 'selected' : '' }}>🪙 Has Coins (>0)</option>
-                        <option value="high" {{ request('coins') === 'high' ? 'selected' : '' }}>💰 High Balance (500+)</option>
-                        <option value="zero" {{ request('coins') === 'zero' ? 'selected' : '' }}>Zero Balance (0)</option>
-                    </select>
-                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
 
-                <!-- Sort Order -->
-                <div class="input-group">
-                    <select name="sort" onchange="this.form.submit()">
-                        <option value="newest" {{ request('sort', 'newest') === 'newest' ? 'selected' : '' }}>🕒 Newest First</option>
-                        <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>⏳ Oldest First</option>
-                        <option value="coins_desc" {{ request('sort') === 'coins_desc' ? 'selected' : '' }}>🪙 Most Coins</option>
-                        <option value="name_asc" {{ request('sort') === 'name_asc' ? 'selected' : '' }}>🔤 Name (A-Z)</option>
-                    </select>
-                </div>
-
-                <!-- Submit / Reset Buttons -->
-                <div style="display: flex; gap: 8px;">
-                    <button type="submit" class="btn btn-primary" style="padding: 9px 16px;">
-                        <i class="fa-solid fa-filter"></i> Filter
-                    </button>
-                    @if(request()->hasAny(['search', 'status', 'gender', 'vip', 'coins', 'sort']))
-                        <a href="{{ route('admin.users', ['user_type' => $userType]) }}" class="btn btn-secondary" style="padding: 9px 14px;" title="Clear all filters">
-                            <i class="fa-solid fa-rotate-left"></i>
-                        </a>
-                    @endif
-                </div>
+                @if(request()->hasAny(['search', 'status', 'vip']) || request('user_type') === 'bots' || request('user_type') === 'all')
+                    <a href="{{ route('admin.users') }}" class="btn btn-secondary btn-sm" title="Reset Filters">Reset</a>
+                @endif
             </form>
         </div>
 
-        <!-- Users Table -->
         <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
-                        <th>User Account</th>
-                        <th>Email & Contact</th>
+                        <th>User</th>
+                        <th>Email</th>
                         <th>Location & Role</th>
                         <th>Status</th>
-                        <th>Coins Balance</th>
+                        <th>Wallet Balance</th>
                         <th>VIP Tier</th>
-                        <th>Registered</th>
+                        <th>Joined Date</th>
                         <th style="text-align: right;">Actions</th>
                     </tr>
                 </thead>
@@ -174,41 +76,18 @@
                             $country = $u->profile?->country;
                             $occupation = $u->profile?->occupation;
                             $gender = $u->profile?->gender ? ucfirst($u->profile->gender) : null;
-                            $avatarUrl = $u->primaryPhoto?->full_url;
-                            $initial = strtoupper(substr($displayName, 0, 1));
                         @endphp
                         <tr>
                             <td>
-                                <div style="display: flex; align-items: center; gap: 12px;">
-                                    @if($avatarUrl)
-                                        <img src="{{ $avatarUrl }}" alt="{{ $displayName }}" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color);">
-                                    @else
-                                        <div style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #EC4899, #8B5CF6); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;">
-                                            {{ $initial }}
-                                        </div>
-                                    @endif
-                                    <div>
-                                        <div style="font-weight: 700; font-size: 14px; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
-                                            {{ $displayName }}
-                                            @if($u->is_bot)
-                                                <span style="font-size: 10px; background: rgba(139, 92, 246, 0.15); color: #8B5CF6; padding: 2px 6px; border-radius: 6px; font-weight: 700;">🤖 BOT</span>
-                                            @endif
-                                        </div>
-                                        <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 1px;">
-                                            ID: #{{ $u->id }}
-                                            @if($gender)
-                                                • {{ $gender }}
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="font-size: 13px; font-weight: 500;">{{ $u->email }}</div>
-                                @if($u->phone)
-                                    <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 1px;">{{ $u->phone }}</div>
+                                <strong>{{ $displayName }}</strong>
+                                @if($u->is_bot)
+                                    <span style="font-size: 11px; background: #ede9fe; color: #6d28d9; padding: 1px 6px; border-radius: 4px; font-weight: 600; margin-left: 4px;">Bot</span>
+                                @elseif($gender)
+                                    <span style="font-size: 11.5px; color: var(--text-muted);">({{ $gender }})</span>
                                 @endif
+                                <br><span style="font-size: 11px; color: var(--text-muted);">ID: #{{ $u->id }}</span>
                             </td>
+                            <td>{{ $u->email }}</td>
                             <td>
                                 <div style="font-weight: 500; font-size: 13px;">{{ $city ?: 'Not set' }}{{ $country ? ', ' . $country : '' }}</div>
                                 <div style="font-size: 12px; color: var(--text-secondary);">{{ $occupation ?: 'No occupation' }}</div>
@@ -217,28 +96,23 @@
                                 <span class="badge badge-{{ $u->status }}">{{ ucfirst($u->status) }}</span>
                             </td>
                             <td>
-                                <strong style="font-size: 14px; color: var(--text-primary);">{{ number_format($u->wallet?->balance ?? 0) }}</strong> 
-                                <i class="fa-solid fa-coins" style="color: var(--warning); font-size: 13px;"></i>
+                                <strong>{{ number_format($u->wallet?->balance ?? 0) }}</strong> 
+                                <i class="fa-solid fa-coins" style="color: var(--warning); font-size: 12px;"></i>
                             </td>
                             <td>
                                 @if($u->activeSubscription)
-                                    <span class="badge badge-active">
-                                        <i class="fa-solid fa-gem" style="margin-right: 3px;"></i> {{ $u->activeSubscription->plan->name ?? 'VIP Gold' }}
-                                    </span>
+                                    <span class="badge badge-active">{{ $u->activeSubscription->plan->name ?? 'VIP Gold' }}</span>
                                 @else
                                     <span style="color: var(--text-muted); font-size: 12.5px;">Free Tier</span>
                                 @endif
                             </td>
-                            <td style="font-size: 12.5px; color: var(--text-secondary);">
-                                {{ $u->created_at->format('d M Y') }}
-                                <div style="font-size: 11px; color: var(--text-muted);">{{ $u->created_at->format('h:i A') }}</div>
-                            </td>
+                            <td style="font-size: 12.5px; color: var(--text-secondary);">{{ $u->created_at->format('d M Y') }}</td>
                             <td style="text-align: right; white-space: nowrap;">
                                 <a href="{{ route('admin.users.show', $u->id) }}" class="btn btn-secondary btn-sm" title="View Full Dossier">
-                                    <i class="fa-solid fa-eye"></i> Details
+                                    <i class="fa-solid fa-eye"></i>
                                 </a>
                                 <button type="button" class="btn btn-secondary btn-sm" onclick="openWalletModal({{ $u->id }}, '{{ addslashes($displayName) }}', {{ $u->wallet?->balance ?? 0 }})" title="Adjust Coins">
-                                    <i class="fa-solid fa-coins" style="color: var(--warning);"></i>
+                                    <i class="fa-solid fa-coins"></i>
                                 </button>
                                 <button type="button" class="btn btn-secondary btn-sm" onclick="openStatusModal({{ $u->id }}, '{{ $u->status }}')" title="Change Status">
                                     <i class="fa-solid fa-user-gear"></i>
@@ -252,11 +126,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 36px 20px;">
-                                <div style="font-size: 36px; margin-bottom: 8px;">🔍</div>
-                                <div style="font-size: 15px; font-weight: 600; color: var(--text-primary);">No users found</div>
-                                <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Try changing or resetting your active search filters.</div>
-                            </td>
+                            <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 25px;">No users found matching your criteria.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -317,7 +187,7 @@
                         <select name="status" id="statusSelect" class="form-control">
                             <option value="active">Active (Full access)</option>
                             <option value="suspended">Suspended (Temporary hold)</option>
-                            <option value="banned" style="color: var(--danger);">Banned (Permanent block)</option>
+                            <option value="banned">Banned (Permanent block)</option>
                         </select>
                     </div>
                     <div class="form-group">
