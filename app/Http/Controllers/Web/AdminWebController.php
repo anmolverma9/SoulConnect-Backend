@@ -105,30 +105,115 @@ class AdminWebController extends Controller
     }
 
     /**
-     * Users & Profiles Management
+     * Users & Profiles Management with Advanced Filters
      */
     public function users(Request $request): View
     {
-        $query = User::query()->with(['profile', 'wallet', 'activeSubscription.plan']);
+        $query = User::query()->with(['profile', 'wallet', 'activeSubscription.plan', 'photos']);
 
+        // Bot vs Real User Filtering (Default: Real Users Only)
+        $userType = $request->input('user_type', 'real');
+        if ($request->boolean('show_bots') || $userType === 'bots') {
+            $query->where('is_bot', true);
+            $userType = 'bots';
+        } elseif ($userType === 'all') {
+            // Show both real users and bots
+        } else {
+            // Default: Real Users Only
+            $query->where('is_bot', false);
+            $userType = 'real';
+        }
+
+        // Account Status Filter
         if ($request->filled('status')) {
             $query->where('status', $request->input('status'));
         }
 
+        // Gender Filter
+        if ($request->filled('gender')) {
+            $gender = $request->input('gender');
+            $query->whereHas('profile', function ($pq) use ($gender) {
+                $pq->where('gender', $gender);
+            });
+        }
+
+        // VIP Tier Filter
+        if ($request->filled('vip')) {
+            if ($request->input('vip') === 'vip') {
+                $query->whereHas('activeSubscription', function ($sq) {
+                    $sq->whereIn('status', ['active', 'grace_period'])->where('ends_at', '>', now());
+                });
+            } elseif ($request->input('vip') === 'free') {
+                $query->whereDoesntHave('activeSubscription', function ($sq) {
+                    $sq->whereIn('status', ['active', 'grace_period'])->where('ends_at', '>', now());
+                });
+            }
+        }
+
+        // Coin Balance Filter
+        if ($request->filled('coins')) {
+            $coinsFilter = $request->input('coins');
+            if ($coinsFilter === 'positive') {
+                $query->whereHas('wallet', function ($wq) {
+                    $wq->where('balance', '>', 0);
+                });
+            } elseif ($coinsFilter === 'zero') {
+                $query->where(function ($q) {
+                    $q->whereDoesntHave('wallet')
+                      ->orWhereHas('wallet', function ($wq) {
+                          $wq->where('balance', '<=', 0);
+                      });
+                });
+            } elseif ($coinsFilter === 'high') {
+                $query->whereHas('wallet', function ($wq) {
+                    $wq->where('balance', '>=', 500);
+                });
+            }
+        }
+
+        // Search Keyword
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%")
                   ->orWhereHas('profile', function ($pq) use ($search) {
-                      $pq->where('name', 'like', "%{$search}%");
+                      $pq->where('name', 'like', "%{$search}%")
+                         ->orWhere('city', 'like', "%{$search}%");
                   });
             });
         }
 
-        $users = $query->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
+        // Sorting
+        $sort = $request->input('sort', 'newest');
+        switch ($sort) {
+            case 'oldest':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'name_asc':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'coins_desc':
+                $query->leftJoin('wallets', 'users.id', '=', 'wallets.user_id')
+                      ->orderBy('wallets.balance', 'desc')
+                      ->select('users.*');
+                break;
+            case 'newest':
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
 
-        return view('admin.users.index', compact('users'));
+        $users = $query->paginate(15)->withQueryString();
+
+        $metrics = [
+            'total_real' => User::where('is_bot', false)->count(),
+            'total_bots' => User::where('is_bot', true)->count(),
+            'total_vip' => Subscription::whereIn('status', ['active', 'grace_period'])->where('ends_at', '>', now())->count(),
+            'circulating_coins' => (int) Wallet::sum('balance'),
+        ];
+
+        return view('admin.users.index', compact('users', 'userType', 'metrics'));
     }
 
     /**
