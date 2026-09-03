@@ -10,6 +10,7 @@ use App\Models\CoinPackage;
 use App\Models\CoinPurchase;
 use App\Models\GiftCatalog;
 use App\Models\MatchModel;
+use App\Models\PaymentOrder;
 use App\Models\Report;
 use App\Models\Subscription;
 use App\Models\User;
