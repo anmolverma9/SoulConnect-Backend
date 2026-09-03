@@ -39,7 +39,9 @@
                                 </span>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="openEditPackageModal({{ json_encode($p) }})" title="Edit Package">
+                                <button type="button" class="btn btn-secondary btn-sm" 
+                                    onclick="editPackage('{{ $p->id }}', '{{ addslashes($p->name) }}', '{{ $p->coins }}', '{{ $p->bonus_coins }}', '{{ $p->price }}', '{{ addslashes($p->google_product_id) }}', '{{ $p->is_active ? 1 : 0 }}')" 
+                                    title="Edit Package">
                                     <i class="fa-solid fa-pen-to-square"></i> Edit
                                 </button>
                                 <form action="{{ route('admin.packages.delete', $p->id) }}" method="POST" onsubmit="return confirm('Delete package {{ addslashes($p->name) }}?');" style="display:inline;">
@@ -153,19 +155,25 @@
             </form>
         </div>
     </div>
-@endsection
 
-@section('scripts')
-<script>
-    function openEditPackageModal(pkg) {
-        document.getElementById('editPackageForm').action = "/admin/packages/" + pkg.id;
-        document.getElementById('edit_pkg_name').value = pkg.name;
-        document.getElementById('edit_pkg_coins').value = pkg.coins;
-        document.getElementById('edit_pkg_bonus').value = pkg.bonus_coins || 0;
-        document.getElementById('edit_pkg_price').value = pkg.price;
-        document.getElementById('edit_pkg_sku').value = pkg.google_product_id;
-        document.getElementById('edit_pkg_active').checked = pkg.is_active ? true : false;
-        openModal('editPackageModal');
-    }
-</script>
+    <script>
+        function editPackage(id, name, coins, bonus, price, sku, isActive) {
+            var form = document.getElementById('editPackageForm');
+            form.action = "{{ url('admin/packages') }}/" + id;
+            document.getElementById('edit_pkg_name').value = name;
+            document.getElementById('edit_pkg_coins').value = coins;
+            document.getElementById('edit_pkg_bonus').value = bonus || 0;
+            document.getElementById('edit_pkg_price').value = price;
+            document.getElementById('edit_pkg_sku').value = sku;
+            document.getElementById('edit_pkg_active').checked = (isActive == 1 || isActive == '1');
+            openModal('editPackageModal');
+        }
+
+        // Backward-compatible alias
+        window.openEditPackageModal = function(pkg) {
+            if (typeof pkg === 'object') {
+                editPackage(pkg.id, pkg.name, pkg.coins, pkg.bonus_coins, pkg.price, pkg.google_product_id, pkg.is_active ? 1 : 0);
+            }
+        };
+    </script>
 @endsection

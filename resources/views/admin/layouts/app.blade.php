@@ -671,5 +671,7 @@
 
         window.onload = initTheme;
     </script>
+    @yield('scripts')
+    @stack('scripts')
 </body>
 </html>
