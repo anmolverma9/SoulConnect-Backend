@@ -137,7 +137,10 @@ class AdminWebController extends Controller
     public function showUser(User $user): View
     {
         $user->load(['profile', 'photos', 'preferences', 'wallet.transactions', 'activeSubscription.plan', 'devices']);
-        return view('admin.users.show', compact('user'));
+        $paymentOrders = PaymentOrder::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $transactions = WalletTransaction::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+        return view('admin.users.show', compact('user', 'paymentOrders', 'transactions'));
     }
 
     /**

@@ -135,4 +135,105 @@
             </div>
         </div>
     </div>
+
+    <!-- SpacePay Payment Orders History -->
+    <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+            <span class="card-title">
+                <i class="fa-solid fa-credit-card" style="color: var(--primary);"></i> SpacePay Payment Orders ({{ count($paymentOrders) }})
+            </span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Gateway</th>
+                        <th>Amount</th>
+                        <th>Coins Credited</th>
+                        <th>Bank / Txn ID</th>
+                        <th>Status</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($paymentOrders as $order)
+                        <tr>
+                            <td><code>{{ $order->order_id }}</code></td>
+                            <td><span style="font-weight: 600; text-transform: uppercase;">{{ $order->gateway }}</span></td>
+                            <td><strong>₹{{ number_format($order->amount, 2) }}</strong></td>
+                            <td><strong style="color: var(--warning);">+{{ number_format($order->coins_to_credit) }}</strong> 🪙</td>
+                            <td><code>{{ $order->bank_txn_id ?: '-' }}</code></td>
+                            <td>
+                                <span class="badge {{ $order->status === 'success' ? 'badge-active' : ($order->status === 'pending' ? 'badge-suspended' : 'badge-banned') }}">
+                                    {{ strtoupper($order->status) }}
+                                </span>
+                            </td>
+                            <td style="font-size: 12.5px; color: var(--text-secondary);">
+                                {{ $order->created_at->format('d M Y, h:i A') }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 20px;">No SpacePay payment orders recorded for this user.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Full Coin Ledger Transactions -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">
+                <i class="fa-solid fa-coins" style="color: var(--warning);"></i> Coin Ledger & Transactions ({{ count($transactions) }})
+            </span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Coins Amount</th>
+                        <th>Balance Before</th>
+                        <th>Balance After</th>
+                        <th>Description / Reference</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($transactions as $txn)
+                        @php
+                            $isCredit = in_array($txn->type, ['purchase', 'bonus', 'admin_credit', 'refund']) || $txn->amount > 0;
+                        @endphp
+                        <tr>
+                            <td>#{{ $txn->id }}</td>
+                            <td>
+                                <span class="badge {{ $isCredit ? 'badge-active' : 'badge-suspended' }}">
+                                    {{ ucfirst(str_replace('_', ' ', $txn->type)) }}
+                                </span>
+                            </td>
+                            <td>
+                                <strong style="color: {{ $isCredit ? '#10B981' : '#EF4444' }}; font-size: 14px;">
+                                    {{ $isCredit ? '+' : '-' }}{{ abs($txn->amount) }} 🪙
+                                </strong>
+                            </td>
+                            <td>{{ number_format($txn->balance_before) }}</td>
+                            <td><strong>{{ number_format($txn->balance_after) }}</strong></td>
+                            <td>{{ $txn->description ?: '-' }}</td>
+                            <td style="font-size: 12.5px; color: var(--text-secondary);">
+                                {{ $txn->created_at->format('d M Y, h:i A') }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 20px;">No coin transactions recorded for this user yet.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
