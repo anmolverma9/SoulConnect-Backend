@@ -48,6 +48,7 @@ Route::prefix('admin')->group(function () {
         // Packages Store
         Route::get('packages', [AdminWebController::class, 'packages'])->name('admin.packages');
         Route::post('packages', [AdminWebController::class, 'storePackage'])->name('admin.packages.store');
+        Route::put('packages/{package}', [AdminWebController::class, 'updatePackage'])->name('admin.packages.update');
         Route::delete('packages/{package}', [AdminWebController::class, 'deletePackage'])->name('admin.packages.delete');
 
         // Gift Catalog

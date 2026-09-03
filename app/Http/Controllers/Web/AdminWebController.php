@@ -369,6 +369,28 @@ class AdminWebController extends Controller
     }
 
     /**
+     * Update Coin Package
+     */
+    public function updatePackage(Request $request, CoinPackage $package): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:64',
+            'coins' => 'required|integer|min:1',
+            'bonus_coins' => 'nullable|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'google_product_id' => 'required|string|max:128',
+            'is_active' => 'nullable',
+        ]);
+
+        $validated['bonus_coins'] = $validated['bonus_coins'] ?? 0;
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
+
+        $package->update($validated);
+
+        return back()->with('success', "Coin package '{$package->name}' updated successfully.");
+    }
+
+    /**
      * Delete Coin Package
      */
     public function deletePackage(CoinPackage $package): RedirectResponse
