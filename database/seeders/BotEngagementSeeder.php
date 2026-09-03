@@ -90,51 +90,45 @@ class BotEngagementSeeder extends Seeder
         }
 
         $cannedMessages = [
-            // 🌶️ Spicy / 18+ / Bold Indian Flirty Openers
-            ['category' => 'flirty', 'body' => "Hey handsome.. all alone tonight or got company? 😉🔥"],
-            ['category' => 'flirty', 'body' => "Are you as naughty in real life as you look in your photos? 🙈"],
-            ['category' => 'flirty', 'body' => "Coffee is fine, but what about a late night drive and secrets? 🚗✨"],
-            ['category' => 'flirty', 'body' => "Sach batao.. single ho ya just looking for fun? 😉"],
-            ['category' => 'flirty', 'body' => "I love bold guys who take control.. are you one? 💋"],
-            ['category' => 'flirty', 'body' => "Mummy ko mat batana, but you are totally my type 🙈🔥"],
-            ['category' => 'flirty', 'body' => "Late night cravings.. and no I don't mean food 😉"],
-            ['category' => 'flirty', 'body' => "A quick private video call? Don't be shy 📹💋"],
-            ['category' => 'flirty', 'body' => "Hey trouble.. what's your wildest fantasy? Tell me in DM 😈"],
-            ['category' => 'flirty', 'body' => "You have such tempting lips in your picture.. just saying 🙈"],
-            ['category' => 'flirty', 'body' => "Are you good at keeping secrets? Because I have a few 😉🔥"],
-            ['category' => 'flirty', 'body' => "Dil leke jaoge ya raat bhar baatein karoge? 💖"],
-            ['category' => 'flirty', 'body' => "Bandra side rehte ho kya? Let's catch up tonight 🍸✨"],
-            ['category' => 'flirty', 'body' => "I don't usually message first, but damn you look hot! 🔥"],
-            ['category' => 'flirty', 'body' => "Are you free later tonight? I need good company 🌙"],
-            ['category' => 'flirty', 'body' => "Can you handle a girl who loves to take risks? 😈💋"],
-            ['category' => 'flirty', 'body' => "Ek baat batao.. do you believe in midnight chemistry? ✨"],
-            ['category' => 'flirty', 'body' => "You look like someone who knows how to treat a girl right 🌸😉"],
-            ['category' => 'flirty', 'body' => "I was just about to sleep, but your profile woke me up 🙈🔥"],
-            ['category' => 'flirty', 'body' => "Tell me something dirty or sweet.. your choice 😉"],
+            // 🌶️ Spicy / 18+ / Bold Indian Flirty Openers (Hinglish)
+            ['category' => 'flirty', 'body' => "Hey handsome.. akele ho ya koi company hai? 😉🔥"],
+            ['category' => 'flirty', 'body' => "Sach batao.. real life me bhi itne naughty ho kya? 🙈"],
+            ['category' => 'flirty', 'body' => "Late night drive pe chalein? Kuch secrets batane hain 🚗✨"],
+            ['category' => 'flirty', 'body' => "Sach sach batao.. single ho ya timepass ke liye aaye ho? 😉"],
+            ['category' => 'flirty', 'body' => "Mujhe bold ladke pasand hain jo pehla step lete hain.. are you one? 💋"],
+            ['category' => 'flirty', 'body' => "Mummy ko mat batana, par you are totally my type 🙈🔥"],
+            ['category' => 'flirty', 'body' => "Late night cravings ho rahi hain.. aur khane ki baat nahi kar rahi 😉"],
+            ['category' => 'flirty', 'body' => "Ek quick private video call karein? Sharmao mat 📹💋"],
+            ['category' => 'flirty', 'body' => "Aapki photos dekh kar dil me kuch kuch hone laga 😈❤️"],
+            ['category' => 'flirty', 'body' => "Secrets rakhna aata hai na? Mere paas kaafi hain 😉🔥"],
+            ['category' => 'flirty', 'body' => "Dil chura ke le jaoge ya raat bhar baatein karoge? 💖"],
+            ['category' => 'flirty', 'body' => "Aaj raat free ho kya? Achhi company chahiye thi 🌙"],
+            ['category' => 'flirty', 'body' => "Bohot hot lag rahe ho sach me.. swipe karte hi dil ruk gaya 🔥"],
+            ['category' => 'flirty', 'body' => "Ek baat batao.. midnight chemistry me believe karte ho? ✨"],
+            ['category' => 'flirty', 'body' => "Bas sone hi wali thi, par aapka profile dekh ke neend udd gayi 🙈🔥"],
+            ['category' => 'flirty', 'body' => "Kuch sweet ya naughty batao.. your choice 😉💋"],
 
-            // 🌸 Sweet / Normal Indian Openers
-            ['category' => 'greeting', 'body' => "Hey! Saw your profile and loved your vibe ✨"],
-            ['category' => 'greeting', 'body' => "Hi there! How is your week going so far? 😊"],
-            ['category' => 'greeting', 'body' => "Hey handsome! What's your favourite weekend cafe? ☕"],
-            ['category' => 'greeting', 'body' => "Hello! Are you from around Delhi/Mumbai or visiting? 📍"],
-            ['category' => 'greeting', 'body' => "Hey! You have such a pleasant smile in your photos 😊"],
-            ['category' => 'greeting', 'body' => "Hi! Coffee lover or chai lover? Important question ☕🫖"],
-            ['category' => 'greeting', 'body' => "Hey! What kind of music is on your playlist right now? 🎶"],
-            ['category' => 'greeting', 'body' => "Hi there! Tell me one thing that made you smile today 🌸"],
-            ['category' => 'greeting', 'body' => "Hey! Spontaneous road trips or cozy movie nights? 🎬"],
-            ['category' => 'greeting', 'body' => "Hey! Hope you are having an amazing evening ✨"],
+            // 🌸 Sweet / Normal Hinglish Openers
+            ['category' => 'greeting', 'body' => "Hey! Kya kar rahe ho? Vibe bohot achhi lagi aapki ✨"],
+            ['category' => 'greeting', 'body' => "Hello ji! Kahan se ho aap? 📍"],
+            ['category' => 'greeting', 'body' => "Hey handsome! Din kaisa chal raha hai aapka? 😊"],
+            ['category' => 'greeting', 'body' => "Smile bohot pyari hai aapki photos me ❤️"],
+            ['category' => 'greeting', 'body' => "Chai lover ho ya coffee lover? Important sawaal hai ☕🫖"],
+            ['category' => 'greeting', 'body' => "Playlist me kaunsa gaana loop pe chal raha hai abhi? 🎶"],
+            ['category' => 'greeting', 'body' => "Hey! Free ho to thodi baatein karein? 🌸"],
+            ['category' => 'greeting', 'body' => "Spontaneous road trip chaloge ya cozy movie night? 🎬"],
+            ['category' => 'greeting', 'body' => "Aap bohot genuine lag rahe ho.. socha hi bol dun 😊"],
+            ['category' => 'greeting', 'body' => "Hi! Mujhse dosti karoge? ✨"],
 
-            // 💬 Follow-ups & Questions (Indian context)
-            ['category' => 'follow_up', 'body' => "Arey reply kab karoge? I'm waiting! 🙈💬"],
-            ['category' => 'follow_up', 'body' => "Busy ho ya ignore kar rahe ho? 😉"],
-            ['category' => 'follow_up', 'body' => "Tell me about your favorite travel spot in India! 🏔️🏖️"],
-            ['category' => 'follow_up', 'body' => "Are you free to do a quick voice call later? 📞🌸"],
-            ['category' => 'follow_up', 'body' => "Drop me a message whenever you get free ✨"],
-            ['category' => 'follow_up', 'body' => "Sach batao, what made you join Soul Connect? 💫"],
-            ['category' => 'follow_up', 'body' => "I'm planning a trip next month, need suggestions! ✈️"],
-            ['category' => 'follow_up', 'body' => "Would love to catch up for coffee sometime ☕😊"],
-            ['category' => 'follow_up', 'body' => "Hope your day was as charming as you! 🌸"],
-            ['category' => 'follow_up', 'body' => "Let's share playlists.. send me your favorite track 🎧"]
+            // 💬 Follow-ups & Questions (Hinglish)
+            ['category' => 'follow_up', 'body' => "Arey reply to karo! Itna kyu bhav kha rahe ho? 🙈💬"],
+            ['category' => 'follow_up', 'body' => "Busy ho ya mujhe ignore kar rahe ho? 😉"],
+            ['category' => 'follow_up', 'body' => "Aapka WhatsApp number mil sakta hai kya? 🙈📱"],
+            ['category' => 'follow_up', 'body' => "Ek quick voice call karein kya agar free ho? 📞🌸"],
+            ['category' => 'follow_up', 'body' => "Jab bhi free ho jao to text karna, I'm waiting ✨"],
+            ['category' => 'follow_up', 'body' => "Kabhi Mumbai/Delhi aao to coffee pe milte hain ☕😊"],
+            ['category' => 'follow_up', 'body' => "Apna favorite romantic song share karo na 🎧❤️"],
+            ['category' => 'follow_up', 'body' => "Lagta hai aap bohot busy person ho! Phir bhi text kar diya 🙈"]
         ];
 
         BotCannedMessage::truncate();
