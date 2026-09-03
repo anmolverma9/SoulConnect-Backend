@@ -94,7 +94,7 @@ class AdminWebController extends Controller
             'total_calls' => Call::count(),
             'call_minutes' => (int) ceil(Call::where('status', 'ended')->sum('duration_seconds') / 60),
             'active_subs' => Subscription::whereIn('status', ['active', 'grace_period'])->where('ends_at', '>', now())->count(),
-            'coin_sales_usd' => (float) CoinPurchase::where('status', 'verified')->join('coin_packages', 'coin_purchases.package_id', '=', 'coin_packages.id')->sum('coin_packages.price'),
+            'coin_sales_revenue' => (float) PaymentOrder::where('status', 'success')->sum('amount'),
             'circulating_coins' => (int) Wallet::sum('balance'),
             'pending_reports' => Report::where('status', 'pending')->count(),
             'recent_users' => User::with('profile', 'wallet')->orderBy('created_at', 'desc')->limit(5)->get(),

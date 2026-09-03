@@ -44,9 +44,9 @@
         <div class="stat-card">
             <div class="stat-header">
                 <span class="stat-label">Coin Sales Revenue</span>
-                <div class="stat-icon" style="background: var(--success-light); color: var(--success);"><i class="fa-solid fa-dollar-sign"></i></div>
+                <div class="stat-icon" style="background: var(--success-light); color: var(--success);"><i class="fa-solid fa-indian-rupee-sign"></i></div>
             </div>
-            <div class="stat-value">${{ number_format($stats['coin_sales_usd'], 2) }}</div>
+            <div class="stat-value">₹{{ number_format($stats['coin_sales_revenue'], 2) }}</div>
             <div class="stat-sub">{{ number_format($stats['circulating_coins']) }} coins in wallets</div>
         </div>
 
