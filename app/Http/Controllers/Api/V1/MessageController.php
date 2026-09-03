@@ -27,6 +27,15 @@ class MessageController extends Controller
             return ApiResponse::forbidden('Unauthorized.');
         }
 
+        // Mark incoming messages as read
+        Message::where('conversation_id', $conversation->id)
+            ->where('sender_id', '!=', $request->user()->id)
+            ->whereNull('read_at')
+            ->update([
+                'read_at' => \Carbon\Carbon::now(),
+                'status' => 'read',
+            ]);
+
         $messages = Message::where('conversation_id', $conversation->id)
             ->with(['sender.profile'])
             ->orderBy('created_at', 'desc')

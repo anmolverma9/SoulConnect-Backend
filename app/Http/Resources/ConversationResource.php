@@ -13,11 +13,17 @@ class ConversationResource extends JsonResource
         $otherParticipant = $this->participants->firstWhere('user_id', '!=', $currentUserId);
         $otherUser = $otherParticipant?->user;
 
+        $unreadCount = $currentUserId ? \App\Models\Message::where('conversation_id', $this->id)
+            ->where('sender_id', '!=', $currentUserId)
+            ->whereNull('read_at')
+            ->count() : 0;
+
         return [
             'id' => $this->id,
             'type' => $this->type,
             'match_id' => $this->match_id,
             'last_message_at' => $this->last_message_at?->toIso8601String(),
+            'unread_count' => $unreadCount,
             'other_user' => $otherUser ? [
                 'id' => $otherUser->id,
                 'name' => $otherUser->name,
