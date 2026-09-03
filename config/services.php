@@ -24,4 +24,10 @@ return [
         'project_id' => env('FIREBASE_PROJECT_ID'),
         'credentials' => env('FIREBASE_CREDENTIALS'),
     ],
+
+    'spacepay' => [
+        'public_key' => env('SPACEPAY_PUBLIC_KEY', 'pk_test_51xxxxxxxxxxxxx'),
+        'secret_key' => env('SPACEPAY_SECRET_KEY', '02efwxsjxxxxxxxxxxx'),
+        'base_url' => env('SPACEPAY_BASE_URL', 'https://spacepay.in/api/payment/v1'),
+    ],
 ];

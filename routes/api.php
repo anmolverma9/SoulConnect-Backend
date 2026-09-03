@@ -163,7 +163,9 @@ Route::prefix('v1')->group(function () {
         Route::get('wallet', [WalletController::class, 'show']);
         Route::get('wallet/transactions', [WalletController::class, 'transactions']);
 
-        // Payment Verification (Google Play)
+        // Payment Verification & SpacePay Gateway
+        Route::post('payments/spacepay/initiate', [\App\Http\Controllers\Api\V1\SpacePayController::class, 'initiate']);
+        Route::get('payments/spacepay/orders/{orderId}/status', [\App\Http\Controllers\Api\V1\SpacePayController::class, 'checkStatus']);
         Route::post('payments/google-play/verify', [PaymentController::class, 'verifyGooglePlay']);
         Route::get('subscription', [SubscriptionController::class, 'current']);
         Route::post('subscription/google-play/verify', [SubscriptionController::class, 'verifyGooglePlay']);
