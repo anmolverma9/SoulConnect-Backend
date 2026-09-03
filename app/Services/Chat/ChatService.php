@@ -132,8 +132,12 @@ class ChatService
                 'last_message_at' => Carbon::now(),
             ]);
 
-            // Real-time broadcast
-            event(new MessageSentEvent($message, $sender));
+            // Real-time broadcast (fail-safe)
+            try {
+                event(new MessageSentEvent($message, $sender));
+            } catch (\Throwable $e) {
+                // Ignore broadcast setup issues on hosting
+            }
 
             // Automated Bot Reply if receiver is a bot
             if ($otherParticipant && $otherParticipant->user && $otherParticipant->user->is_bot) {
@@ -156,9 +160,13 @@ class ChatService
                 ]);
             }
 
-            // Send push notification to receiver if real user
-            if ($otherParticipant && $otherParticipant->user && ! $otherParticipant->user->is_bot) {
-                $otherParticipant->user->notify(new MessageNotification($message, $sender));
+            // Send push notification to receiver if real user (fail-safe)
+            try {
+                if ($otherParticipant && $otherParticipant->user && ! $otherParticipant->user->is_bot) {
+                    $otherParticipant->user->notify(new MessageNotification($message, $sender));
+                }
+            } catch (\Throwable $e) {
+                // Ignore notification issues on hosting
             }
 
             return $message;
