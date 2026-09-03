@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'profile' => new UserProfileResource($this->whenLoaded('profile')),
             'photos' => ProfilePhotoResource::collection($this->whenLoaded('photos')),
             'preferences' => new UserPreferenceResource($this->whenLoaded('preferences')),
-            'wallet' => new WalletResource($this->whenLoaded('wallet')),
+            'wallet' => new WalletResource($this->wallet ?: \App\Models\Wallet::firstOrCreate(['user_id' => $this->id], ['balance' => 0])),
             'active_subscription' => new SubscriptionResource($this->whenLoaded('activeSubscription')),
             'active_boost' => new BoostResource($this->whenLoaded('activeBoost')),
             'followers_count' => $this->followers()->count(),
