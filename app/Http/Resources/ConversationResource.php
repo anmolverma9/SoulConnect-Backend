@@ -15,7 +15,7 @@ class ConversationResource extends JsonResource
 
         $unreadCount = $currentUserId ? \App\Models\Message::where('conversation_id', $this->id)
             ->where('sender_id', '!=', $currentUserId)
-            ->whereNull('read_at')
+            ->where('status', '!=', 'read')
             ->count() : 0;
 
         return [

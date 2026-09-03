@@ -30,9 +30,8 @@ class MessageController extends Controller
         // Mark incoming messages as read
         Message::where('conversation_id', $conversation->id)
             ->where('sender_id', '!=', $request->user()->id)
-            ->whereNull('read_at')
+            ->where('status', '!=', 'read')
             ->update([
-                'read_at' => \Carbon\Carbon::now(),
                 'status' => 'read',
             ]);
 
