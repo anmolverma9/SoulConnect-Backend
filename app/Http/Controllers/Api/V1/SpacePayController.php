@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\PaymentOrder;
+use App\Models\User;
 use App\Services\Payment\SpacePayService;
 use App\Services\Wallet\WalletService;
 use App\Support\ApiResponse;
@@ -50,8 +51,8 @@ class SpacePayController extends Controller
     public function checkStatus(Request $request, string $orderId): JsonResponse
     {
         $order = $this->spacePayService->verifyAndCompleteOrder($orderId);
-        $user = $request->user() ?: $order->user;
-        $wallet = $this->walletService->getWallet($user);
+        $user = $request->user() ?: User::find($order->user_id);
+        $wallet = $user ? $this->walletService->getWallet($user) : null;
 
         return ApiResponse::success([
             'order_id' => $order->order_id,
