@@ -66,7 +66,7 @@
                         <label>Gift Name</label>
                         <input type="text" name="name" class="form-control" placeholder="e.g. Red Rose" required>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>Emoji / Icon</label>
                             <input type="text" name="icon_url" class="form-control" placeholder="🌹" required>

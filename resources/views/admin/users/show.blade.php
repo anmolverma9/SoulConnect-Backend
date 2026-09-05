@@ -8,32 +8,32 @@
 @section('page_title', "User Dossier: {$displayName}")
 
 @section('content')
-    <div style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px;">
+    <div class="responsive-flex-row" style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
         <!-- Left: Profile Summary Card -->
-        <div class="card" style="flex: 1; min-width: 320px;">
+        <div class="card" style="flex: 1 1 320px; min-width: 280px;">
             <div class="card-header">
                 <span class="card-title">Profile Overview</span>
                 <span class="badge badge-{{ $user->status }}">{{ strtoupper($user->status) }}</span>
             </div>
-            <div style="padding: 24px;">
-                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
-                    <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold;">
+            <div style="padding: 20px;">
+                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+                    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; flex-shrink: 0;">
                         {{ strtoupper(substr($displayName, 0, 1)) }}
                     </div>
-                    <div>
-                        <h2 style="font-size: 20px; font-weight: 700;">{{ $displayName }}</h2>
-                        <div style="font-size: 13px; color: var(--text-secondary);">{{ $user->email }} • User #{{ $user->id }}</div>
+                    <div style="min-width: 0;">
+                        <h2 style="font-size: 18px; font-weight: 700; word-break: break-word;">{{ $displayName }}</h2>
+                        <div style="font-size: 12.5px; color: var(--text-secondary); word-break: break-all;">{{ $user->email }} • User #{{ $user->id }}</div>
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                <div class="responsive-grid-2" style="margin-bottom: 18px;">
                     <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
                         <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Coins Balance</span>
-                        <div style="font-size: 20px; font-weight: bold; margin-top: 2px;">{{ $user->wallet?->balance ?? 0 }} 🪙</div>
+                        <div style="font-size: 18px; font-weight: bold; margin-top: 2px;">{{ $user->wallet?->balance ?? 0 }} 🪙</div>
                     </div>
                     <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
                         <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">VIP Membership</span>
-                        <div style="font-size: 15px; font-weight: 600; margin-top: 2px;">
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 2px;">
                             {{ $user->activeSubscription?->plan->name ?? 'Free Tier' }}
                         </div>
                     </div>
@@ -46,10 +46,10 @@
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div class="responsive-grid-2" style="margin-bottom: 16px;">
                     <div>
                         <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Location</label>
-                        <div style="font-size: 13.5px; margin-top: 2px;">{{ $user->profile?->city ?: 'Unknown' }}, {{ $user->profile?->country ?: '' }}</div>
+                        <div style="font-size: 13.5px; margin-top: 2px;">{{ $user->profile?->city ?: 'Unknown' }}{{ $user->profile?->country ? ', ' . $user->profile->country : '' }}</div>
                     </div>
                     <div>
                         <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Occupation</label>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <div style="margin-bottom: 16px;">
+                <div style="margin-bottom: 8px;">
                     <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Registered Devices</label>
                     <div style="margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap;">
                         @forelse($user->devices as $device)
@@ -71,16 +71,16 @@
         </div>
 
         <!-- Right: Edit Profile Form -->
-        <div class="card" style="flex: 1.2; min-width: 320px;">
+        <div class="card" style="flex: 1.2 1 360px; min-width: 280px;">
             <div class="card-header">
                 <span class="card-title">Edit Account & Permissions</span>
             </div>
-            <div style="padding: 24px;">
+            <div style="padding: 20px;">
                 <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>Full Display Name</label>
                             <input type="text" name="name" class="form-control" value="{{ old('name', $displayName) }}" required>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>Gender</label>
                             <select name="gender" class="form-control">
@@ -111,7 +111,7 @@
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>City</label>
                             <input type="text" name="city" class="form-control" value="{{ old('city', $user->profile?->city) }}">
@@ -127,7 +127,7 @@
                         <textarea name="bio" class="form-control" rows="3">{{ old('bio', $user->profile?->bio) }}</textarea>
                     </div>
 
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
                         <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
                         <a href="{{ route('admin.users') }}" class="btn btn-secondary">Back to Users</a>
                     </div>

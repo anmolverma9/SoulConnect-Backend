@@ -108,8 +108,8 @@
         <div class="card-header">
             <span class="card-title"><i class="fa-solid fa-server" style="color: var(--primary); margin-right: 6px;"></i> System Engine & Infrastructure</span>
         </div>
-        <div style="padding: 20px;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <div style="padding: 18px 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px;">
                 <div>
                     <span style="font-size: 12px; color: var(--text-secondary);">Backend Framework</span>
                     <div style="font-weight: 600; margin-top: 4px; color: var(--success);"><i class="fa-solid fa-check-circle"></i> Laravel 12 (PHP 8.4)</div>
@@ -124,7 +124,7 @@
                 </div>
                 <div>
                     <span style="font-size: 12px; color: var(--text-secondary);">WebSockets Server</span>
-                    <div style="font-weight: 600; margin-top: 4px;">Laravel Reverb (Port 8080)</div>
+                    <div style="font-weight: 600; margin-top: 4px;">Laravel Reverb</div>
                 </div>
             </div>
         </div>

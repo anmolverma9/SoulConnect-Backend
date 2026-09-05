@@ -77,7 +77,7 @@
                         <label>Package Name</label>
                         <input type="text" name="name" class="form-control" placeholder="e.g. Popular Pack" required>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>Coins Amount</label>
                             <input type="number" name="coins" class="form-control" placeholder="100" required min="1">
@@ -87,7 +87,7 @@
                             <input type="number" name="bonus_coins" class="form-control" placeholder="10" value="0" min="0">
                         </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>Price (INR ₹)</label>
                             <input type="number" step="0.01" name="price" class="form-control" placeholder="99.00" required min="0">
@@ -121,7 +121,7 @@
                         <label>Package Name</label>
                         <input type="text" id="edit_pkg_name" name="name" class="form-control" required>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>Coins Amount</label>
                             <input type="number" id="edit_pkg_coins" name="coins" class="form-control" required min="1">
@@ -131,7 +131,7 @@
                             <input type="number" id="edit_pkg_bonus" name="bonus_coins" class="form-control" min="0">
                         </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="responsive-grid-2">
                         <div class="form-group">
                             <label>Price (INR ₹)</label>
                             <input type="number" step="0.01" id="edit_pkg_price" name="price" class="form-control" required min="0">

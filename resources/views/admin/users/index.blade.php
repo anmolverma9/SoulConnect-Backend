@@ -10,16 +10,16 @@
                 All Users <span style="font-size: 13px; font-weight: normal; color: var(--text-muted);">({{ number_format($users->total()) }} total)</span>
             </div>
 
-            <!-- Simple, Professional Filter Bar -->
-            <form action="{{ route('admin.users') }}" method="GET" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <!-- Responsive Professional Filter Bar -->
+            <form action="{{ route('admin.users') }}" method="GET" class="user-filter-form" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; max-width: 100%;">
                 <!-- Search Input -->
-                <div class="input-group" style="width: 220px;">
+                <div class="input-group filter-item" style="flex: 1 1 180px; min-width: 150px;">
                     <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
                     <input type="text" name="search" placeholder="Search name or email..." value="{{ request('search') }}">
                 </div>
 
                 <!-- Account Type (Real vs Bots) -->
-                <div class="input-group" style="width: 140px;">
+                <div class="input-group filter-item" style="flex: 1 1 130px; min-width: 120px;">
                     <select name="user_type" onchange="this.form.submit()">
                         <option value="real" {{ $userType === 'real' ? 'selected' : '' }}>Real Users Only</option>
                         <option value="bots" {{ $userType === 'bots' ? 'selected' : '' }}>Bots Only</option>
@@ -28,7 +28,7 @@
                 </div>
 
                 <!-- Status Filter -->
-                <div class="input-group" style="width: 130px;">
+                <div class="input-group filter-item" style="flex: 1 1 120px; min-width: 110px;">
                     <select name="status" onchange="this.form.submit()">
                         <option value="">All Statuses</option>
                         <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- VIP Filter -->
-                <div class="input-group" style="width: 120px;">
+                <div class="input-group filter-item" style="flex: 1 1 110px; min-width: 100px;">
                     <select name="vip" onchange="this.form.submit()">
                         <option value="">All Tiers</option>
                         <option value="vip" {{ request('vip') === 'vip' ? 'selected' : '' }}>VIP Members</option>
@@ -46,11 +46,13 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <button type="submit" class="btn btn-primary btn-sm">Filter</button>
 
-                @if(request()->hasAny(['search', 'status', 'vip']) || request('user_type') === 'bots' || request('user_type') === 'all')
-                    <a href="{{ route('admin.users') }}" class="btn btn-secondary btn-sm" title="Reset Filters">Reset</a>
-                @endif
+                    @if(request()->hasAny(['search', 'status', 'vip']) || request('user_type') === 'bots' || request('user_type') === 'all')
+                        <a href="{{ route('admin.users') }}" class="btn btn-secondary btn-sm" title="Reset Filters">Reset</a>
+                    @endif
+                </div>
             </form>
         </div>
 

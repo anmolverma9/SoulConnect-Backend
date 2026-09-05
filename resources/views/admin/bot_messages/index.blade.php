@@ -14,7 +14,7 @@
 </div>
 
 <!-- Stats Row -->
-<div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 24px;">
+<div class="stats-grid">
     <div class="stat-card">
         <div class="stat-header">
             <span class="stat-title">Active Message Templates</span>
