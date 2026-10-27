@@ -726,7 +726,7 @@ class AdminWebController extends Controller
                 'push_notification_single',
                 'push_notification_multiple',
             ])
-            ->with('adminUser')
+            ->with('admin')
             ->orderBy('created_at', 'desc')
             ->take(15)
             ->get();
@@ -781,6 +781,9 @@ class AdminWebController extends Controller
             );
 
             if ($result['success'] ?? false) {
+                if ($result['mock'] ?? false) {
+                    return back()->with('warning', 'Notice: Firebase credentials file not found on server. Notification simulated in log. Please upload your service-account.json to storage/app/firebase/service-account.json to deliver live to devices.');
+                }
                 return back()->with('success', 'Push notification broadcasted successfully to all members via FCM topic "all"!');
             }
 

@@ -278,6 +278,38 @@ class FcmService
     }
 
     /**
+     * Locate the Firebase service account credentials JSON file
+     */
+    public function getCredentialsPath(): ?string
+    {
+        $configured = config('services.firebase.credentials');
+        if (! empty($configured)) {
+            if (file_exists($configured)) {
+                return $configured;
+            }
+            if (file_exists(base_path($configured))) {
+                return base_path($configured);
+            }
+        }
+
+        $candidates = [
+            storage_path('app/firebase/service-account.json'),
+            storage_path('desi-saheli-firebase-adminsdk-fbsvc-9f3cdde7d7.json'),
+            base_path('storage/app/firebase/service-account.json'),
+            base_path('storage/desi-saheli-firebase-adminsdk-fbsvc-9f3cdde7d7.json'),
+            storage_path('firebase-service-account.json'),
+        ];
+
+        foreach ($candidates as $path) {
+            if (file_exists($path)) {
+                return $path;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Retrieve or generate Google OAuth2 Access Token for FCM v1 API
      */
     protected function getAccessToken(): ?string
@@ -286,9 +318,10 @@ class FcmService
             return null;
         }
 
-        $credentialsPath = config('services.firebase.credentials');
+        $credentialsPath = $this->getCredentialsPath();
 
-        if (empty($credentialsPath) || ! file_exists($credentialsPath)) {
+        if (! $credentialsPath) {
+            Log::warning("FCM: Credentials JSON not found in storage. Upload service-account.json to storage/app/firebase/service-account.json");
             return null;
         }
 

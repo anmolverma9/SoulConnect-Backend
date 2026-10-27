@@ -24,4 +24,9 @@ class AdminAction extends Model
     {
         return $this->belongsTo(AdminUser::class, 'admin_user_id');
     }
+
+    public function adminUser(): BelongsTo
+    {
+        return $this->admin();
+    }
 }
