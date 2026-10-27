@@ -130,7 +130,7 @@
                             <option value="">-- Choose a user --</option>
                             @foreach($users as $u)
                                 <option value="{{ $u->id }}" data-name="{{ $u->name }}" data-devices="{{ $u->active_devices_count }}">
-                                    #{{ $u->id }} - {{ $u->name }} ({{ $u->phone ?: $u->email }}) • {{ $u->active_devices_count }} active {{ Str::plural('device', $u->active_devices_count) }}
+                                    #{{ $u->id }} - {{ $u->name }} ({{ $u->email }}) • {{ $u->active_devices_count }} active {{ Str::plural('device', $u->active_devices_count) }}
                                 </option>
                             @endforeach
                         </select>
@@ -152,20 +152,20 @@
                         <!-- Search input for filter -->
                         <div style="position: relative; margin-bottom: 8px;">
                             <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 11px; color: var(--text-muted); font-size: 12px;"></i>
-                            <input type="text" id="userSearchInput" placeholder="Filter members by name or phone..." onkeyup="filterUserList()" style="width: 100%; padding: 8px 12px 8px 34px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-body); color: var(--text-primary); font-size: 12.5px;">
+                            <input type="text" id="userSearchInput" placeholder="Filter members by name or email..." onkeyup="filterUserList()" style="width: 100%; padding: 8px 12px 8px 34px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-body); color: var(--text-primary); font-size: 12.5px;">
                         </div>
 
                         <!-- Scrollable list of user checkboxes -->
                         <div id="usersCheckboxList" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 10px; padding: 8px; background: var(--bg-body);">
                             @foreach($users as $u)
-                                <label class="user-check-item" data-search="{{ strtolower($u->name . ' ' . $u->phone . ' ' . $u->email) }}" style="display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 6px; cursor: pointer; transition: background 0.15s;">
+                                <label class="user-check-item" data-search="{{ strtolower($u->name . ' ' . $u->email) }}" style="display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 6px; cursor: pointer; transition: background 0.15s;">
                                     <input type="checkbox" name="user_ids[]" value="{{ $u->id }}" class="user-checkbox" onchange="updateSelectedCount()">
                                     <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; flex-shrink: 0;">
                                         {{ substr($u->name, 0, 1) }}
                                     </div>
                                     <div style="min-width: 0; flex: 1;">
                                         <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $u->name }}</div>
-                                        <div style="font-size: 11px; color: var(--text-muted);">#{{ $u->id }} • {{ $u->phone ?: $u->email }}</div>
+                                        <div style="font-size: 11px; color: var(--text-muted);">#{{ $u->id }} • {{ $u->email }}</div>
                                     </div>
                                     <span style="font-size: 10.5px; padding: 2px 7px; border-radius: 12px; background: {{ $u->active_devices_count > 0 ? 'rgba(16,185,129,0.15)' : 'rgba(148,163,184,0.15)' }}; color: {{ $u->active_devices_count > 0 ? '#10B981' : 'var(--text-muted)' }}; font-weight: 600;">
                                         {{ $u->active_devices_count }} {{ Str::plural('dev', $u->active_devices_count) }}

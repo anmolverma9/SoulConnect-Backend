@@ -706,7 +706,8 @@ class AdminWebController extends Controller
         $stats = $this->fcmService->getDeviceStats();
 
         $search = $request->query('search');
-        $usersQuery = User::select('id', 'name', 'phone', 'email', 'avatar', 'is_active', 'gender')
+        $usersQuery = User::select('id', 'name', 'email', 'status')
+            ->with('profile')
             ->withCount(['devices as active_devices_count' => function ($q) {
                 $q->whereNotNull('fcm_token');
             }]);
@@ -714,8 +715,7 @@ class AdminWebController extends Controller
         if ($search) {
             $usersQuery->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                  ->orWhere('email', 'like', "%{$search}%");
             });
         }
 
