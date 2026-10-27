@@ -2,6 +2,9 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/*.json
+/storage/app/firebase/*
+*firebase-adminsdk*.json
 /vendor
 .env
 .env.backup

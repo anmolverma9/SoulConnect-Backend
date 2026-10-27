@@ -21,8 +21,16 @@ return [
     ],
 
     'firebase' => [
-        'project_id' => env('FIREBASE_PROJECT_ID'),
-        'credentials' => env('FIREBASE_CREDENTIALS'),
+        'project_id' => env('FIREBASE_PROJECT_ID', 'desi-saheli'),
+        'credentials' => env('FIREBASE_CREDENTIALS')
+            ? (file_exists(env('FIREBASE_CREDENTIALS'))
+                ? env('FIREBASE_CREDENTIALS')
+                : (file_exists(base_path(env('FIREBASE_CREDENTIALS')))
+                    ? base_path(env('FIREBASE_CREDENTIALS'))
+                    : storage_path('desi-saheli-firebase-adminsdk-fbsvc-9f3cdde7d7.json')))
+            : (file_exists(storage_path('desi-saheli-firebase-adminsdk-fbsvc-9f3cdde7d7.json'))
+                ? storage_path('desi-saheli-firebase-adminsdk-fbsvc-9f3cdde7d7.json')
+                : base_path('storage/desi-saheli-firebase-adminsdk-fbsvc-9f3cdde7d7.json')),
     ],
 
     'spacepay' => [

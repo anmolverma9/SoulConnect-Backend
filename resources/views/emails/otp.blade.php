@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul Connect Verification Code</title>
+    <title>Desi Saheli Verification Code</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body {
@@ -52,7 +52,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <h1 style="margin: 14px 0 0 0; color: #ffffff; font-size: 24px; font-weight: 800; letter-spacing: -0.5px;">Soul Connect</h1>
+                            <h1 style="margin: 14px 0 0 0; color: #ffffff; font-size: 24px; font-weight: 800; letter-spacing: -0.5px;">Desi Saheli</h1>
                             <p style="margin: 4px 0 0 0; color: rgba(255, 255, 255, 0.9); font-size: 13px; font-weight: 500; letter-spacing: 0.5px;">FIND YOUR PERFECT SOUL MATCH</p>
                         </td>
                     </tr>
@@ -101,7 +101,7 @@
                                 <tr>
                                     <td style="font-size: 18px; width: 26px; vertical-align: top; padding-top: 2px;">🔒</td>
                                     <td style="font-size: 12.5px; color: #64748b; line-height: 1.5; padding-left: 8px;">
-                                        <strong style="color: #334155;">Security Note:</strong> Never share this OTP with anyone. Soul Connect staff will never ask for your verification code.
+                                        <strong style="color: #334155;">Security Note:</strong> Never share this OTP with anyone. Desi Saheli staff will never ask for your verification code.
                                     </td>
                                 </tr>
                             </table>
@@ -116,7 +116,7 @@
                     <tr>
                         <td style="background: #f8fafc; border-top: 1px solid #f1f5f9; padding: 22px 30px; text-align: center;">
                             <p style="margin: 0 0 6px 0; color: #94a3b8; font-size: 11.5px; font-weight: 500;">
-                                &copy; {{ date('Y') }} Soul Connect Inc. All rights reserved.
+                                &copy; {{ date('Y') }} Desi Saheli Inc. All rights reserved.
                             </p>
                             <p style="margin: 0; color: #cbd5e1; font-size: 11px;">
                                 Designed with ❤️ for genuine connections and soulmates.

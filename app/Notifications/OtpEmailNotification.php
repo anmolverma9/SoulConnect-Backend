@@ -28,7 +28,7 @@ class OtpEmailNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Your Soul Connect Verification Code: {$this->otp}")
+            ->subject("Your Desi Saheli Verification Code: {$this->otp}")
             ->view('emails.otp', [
                 'otp' => $this->otp,
                 'expiryMinutes' => $this->expiryMinutes,

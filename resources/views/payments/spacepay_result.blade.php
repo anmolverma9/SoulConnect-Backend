@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul Connect - Payment Result</title>
+    <title>Desi Saheli - Payment Result</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         body { background: #0F172A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
@@ -26,7 +26,7 @@
         @if($isSuccess)
             <div class="icon success-icon">✓</div>
             <h1>Payment Successful!</h1>
-            <p>Your transaction has been processed. Coins have been credited to your Soul Connect wallet!</p>
+            <p>Your transaction has been processed. Coins have been credited to your Desi Saheli wallet!</p>
             @if($order)
             <div class="details-box">
                 <div class="detail-row">

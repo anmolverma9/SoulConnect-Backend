@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return response()->json([
-        'app' => config('app.name', 'Soul Connect'),
+        'app' => config('app.name', 'Desi Saheli'),
         'version' => '1.0.0',
         'status' => 'active',
         'documentation' => '/api/v1',
@@ -69,6 +69,10 @@ Route::prefix('admin')->group(function () {
         Route::get('conversations', [AdminWebController::class, 'conversations'])->name('admin.conversations');
         Route::get('conversations/{conversation}', [AdminWebController::class, 'showConversation'])->name('admin.conversations.show');
         Route::post('conversations/{conversation}/message', [AdminWebController::class, 'sendAdminMessage'])->name('admin.conversations.message');
+
+        // Push Notifications Broadcast & Management
+        Route::get('notifications', [AdminWebController::class, 'notifications'])->name('admin.notifications');
+        Route::post('notifications/send', [AdminWebController::class, 'sendPushNotification'])->name('admin.notifications.send');
 
         // System Settings
         Route::get('settings', [AdminWebController::class, 'settings'])->name('admin.settings');

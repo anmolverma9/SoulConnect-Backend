@@ -22,13 +22,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Services\Notification\FcmService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class AdminWebController extends Controller
 {
     public function __construct(
-        protected AdminAuditService $auditService
+        protected AdminAuditService $auditService,
+        protected FcmService $fcmService
     ) {}
 
     /**
@@ -694,5 +696,151 @@ class AdminWebController extends Controller
         ]);
 
         return back()->with('success', 'Message sent successfully.');
+    }
+
+    /**
+     * Show Push Notifications Dashboard
+     */
+    public function notifications(Request $request): View
+    {
+        $stats = $this->fcmService->getDeviceStats();
+
+        $search = $request->query('search');
+        $usersQuery = User::select('id', 'name', 'phone', 'email', 'avatar', 'is_active', 'gender')
+            ->withCount(['devices as active_devices_count' => function ($q) {
+                $q->whereNotNull('fcm_token');
+            }]);
+
+        if ($search) {
+            $usersQuery->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $usersQuery->orderBy('name')->take(250)->get();
+
+        $recentCampaigns = \App\Models\AdminAction::whereIn('action', [
+                'push_notification_topic_all',
+                'push_notification_single',
+                'push_notification_multiple',
+            ])
+            ->with('adminUser')
+            ->orderBy('created_at', 'desc')
+            ->take(15)
+            ->get();
+
+        return view('admin.notifications.index', compact('stats', 'users', 'recentCampaigns'));
+    }
+
+    /**
+     * Dispatch Push Notification (Topic: all, Single Member, or Multiple Members)
+     */
+    public function sendPushNotification(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'target_type' => 'required|string|in:all,single,multiple',
+            'title' => 'required|string|max:120',
+            'body' => 'required|string|max:500',
+            'user_id' => 'required_if:target_type,single|nullable|exists:users,id',
+            'user_ids' => 'required_if:target_type,multiple|nullable|array',
+            'user_ids.*' => 'exists:users,id',
+            'action_type' => 'nullable|string|in:general,open_profile,open_chat,open_store,open_subscription',
+            'action_data' => 'nullable|string|max:255',
+        ]);
+
+        $admin = Auth::guard('admin_web')->user();
+        $payload = [
+            'type' => $validated['action_type'] ?? 'general',
+            'action_type' => $validated['action_type'] ?? 'general',
+            'data' => $validated['action_data'] ?? '',
+            'sent_at' => now()->toIso8601String(),
+        ];
+
+        $title = $validated['title'];
+        $body = $validated['body'];
+        $targetType = $validated['target_type'];
+
+        // Option 1: Send to all members using 'all' topic
+        if ($targetType === 'all') {
+            $result = $this->fcmService->sendToTopic('all', $title, $body, $payload);
+
+            $this->auditService->log(
+                $admin,
+                'push_notification_topic_all',
+                'broadcast',
+                null,
+                [
+                    'target' => 'all_members (topic: all)',
+                    'title' => $title,
+                    'body' => $body,
+                    'result' => $result,
+                ],
+                $request
+            );
+
+            if ($result['success'] ?? false) {
+                return back()->with('success', 'Push notification broadcasted successfully to all members via FCM topic "all"!');
+            }
+
+            return back()->with('error', 'FCM Broadcast Error: ' . ($result['error'] ?? 'Failed to send topic message'));
+        }
+
+        // Option 2: Send to single member
+        if ($targetType === 'single') {
+            $user = User::findOrFail($validated['user_id']);
+            $result = $this->fcmService->sendToUser($user, $title, $body, $payload, true);
+
+            $this->auditService->log(
+                $admin,
+                'push_notification_single',
+                'user',
+                $user->id,
+                [
+                    'target' => $user->name . " (#{$user->id})",
+                    'title' => $title,
+                    'body' => $body,
+                    'devices_targeted' => $result['devices_targeted'],
+                    'devices_sent' => $result['devices_sent'],
+                ],
+                $request
+            );
+
+            if ($result['devices_targeted'] === 0) {
+                return back()->with('warning', "Notification saved to in-app inbox for {$user->name}, but user has no active device with FCM token registered.");
+            }
+
+            return back()->with('success', "Notification delivered to {$user->name} ({$result['devices_sent']}/{$result['devices_targeted']} active devices reached).");
+        }
+
+        // Option 3: Send to multiple members
+        if ($targetType === 'multiple') {
+            $userIds = $validated['user_ids'] ?? [];
+            if (empty($userIds)) {
+                return back()->with('error', 'Please select at least one recipient user.');
+            }
+
+            $result = $this->fcmService->sendToUsers($userIds, $title, $body, $payload, true);
+
+            $this->auditService->log(
+                $admin,
+                'push_notification_multiple',
+                'users',
+                null,
+                [
+                    'target_count' => count($userIds),
+                    'title' => $title,
+                    'body' => $body,
+                    'total_users' => $result['total_users'],
+                    'total_sent' => $result['total_sent'],
+                ],
+                $request
+            );
+
+            return back()->with('success', "Bulk notification dispatched to {$result['total_users']} members ({$result['total_sent']} active devices reached).");
+        }
+
+        return back()->with('error', 'Invalid target type specified.');
     }
 }

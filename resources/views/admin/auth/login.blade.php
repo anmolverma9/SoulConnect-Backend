@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Sign In — Soul Connect</title>
+    <title>Admin Sign In — Desi Saheli</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -85,7 +85,7 @@
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
             <div class="logo-icon"><i class="fa-solid fa-heart"></i></div>
             <div>
-                <h2 style="font-size: 20px; font-weight: 700;">Soul Connect</h2>
+                <h2 style="font-size: 20px; font-weight: 700;">Desi Saheli</h2>
                 <p style="font-size: 12.5px; color: #64748b;">Administrator Sign In</p>
             </div>
         </div>

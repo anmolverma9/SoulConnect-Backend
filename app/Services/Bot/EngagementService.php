@@ -17,7 +17,7 @@ class EngagementService
         "Hey! Just saw your profile and had to say hi ✨",
         "Hey handsome 😊 Loved your vibe!",
         "Hello! Are you having a good day?",
-        "Hey there! What brings you to Soul Connect? 💫",
+        "Hey there! What brings you to Desi Saheli? 💫",
         "Hi! You have such a charming smile in your photos 😊",
         "Hey! Are you from around here or visiting?",
         "Hey! Coffee person or late night drives person? ☕🚗",

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>@yield('title', 'Admin Portal') — Soul Connect</title>
+    <title>@yield('title', 'Admin Portal') — Desi Saheli</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -856,7 +856,7 @@
         <div class="sidebar-header">
             <a href="{{ route('admin.dashboard') }}" class="logo-brand">
                 <div class="logo-icon"><i class="fa-solid fa-heart"></i></div>
-                <span class="logo-text">Soul Connect</span>
+                <span class="logo-text">Desi Saheli</span>
             </a>
             <button class="sidebar-close-btn" onclick="toggleSidebar()" title="Close Menu">
                 <i class="fa-solid fa-xmark"></i>
@@ -893,6 +893,9 @@
             </a>
             <a href="{{ route('admin.conversations') }}" class="nav-item {{ request()->routeIs('admin.conversations*') ? 'active' : '' }}">
                 <i class="fa-solid fa-comments"></i> Live Chat Monitor
+            </a>
+            <a href="{{ route('admin.notifications') }}" class="nav-item {{ request()->routeIs('admin.notifications*') ? 'active' : '' }}">
+                <i class="fa-solid fa-paper-plane"></i> Push Notifications
             </a>
             <a href="{{ route('admin.settings') }}" class="nav-item {{ request()->routeIs('admin.settings*') ? 'active' : '' }}">
                 <i class="fa-solid fa-sliders"></i> System Settings

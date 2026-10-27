@@ -74,7 +74,7 @@ class SpacePayService
             'amount' => (string) $amount,
             'order_id' => $orderId,
             'redirect_url' => $redirectUrl,
-            'note' => "Soul Connect {$totalCoins} Coins Package",
+            'note' => "Desi Saheli {$totalCoins} Coins Package",
         ];
 
         try {
