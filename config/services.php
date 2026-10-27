@@ -21,7 +21,7 @@ return [
     ],
 
     'firebase' => [
-        'project_id' => env('FIREBASE_PROJECT_ID', 'desi-saheli'),
+        'project_id' => (env('FIREBASE_PROJECT_ID') && env('FIREBASE_PROJECT_ID') !== 'dating-app-firebase') ? env('FIREBASE_PROJECT_ID') : 'desi-saheli',
         'credentials' => env('FIREBASE_CREDENTIALS')
             ? (file_exists(env('FIREBASE_CREDENTIALS'))
                 ? env('FIREBASE_CREDENTIALS')

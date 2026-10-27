@@ -107,7 +107,7 @@ class FcmService
      */
     public function sendToTopic(string $topic, string $title, string $body, array $payload = []): array
     {
-        $projectId = config('services.firebase.project_id', 'desi-saheli');
+        $projectId = $this->getProjectId();
         $accessToken = $this->getAccessToken();
 
         if (! $accessToken) {
@@ -199,7 +199,7 @@ class FcmService
             return ['success' => false, 'error' => 'Device has no FCM token'];
         }
 
-        $projectId = config('services.firebase.project_id', 'desi-saheli');
+        $projectId = $this->getProjectId();
         $accessToken = $this->getAccessToken();
 
         // If credentials missing or in test, log and mock
@@ -307,6 +307,27 @@ class FcmService
         }
 
         return null;
+    }
+
+    /**
+     * Retrieve the active Firebase project ID, extracting from credentials JSON if available
+     */
+    public function getProjectId(): string
+    {
+        $credentialsPath = $this->getCredentialsPath();
+        if ($credentialsPath && file_exists($credentialsPath)) {
+            $json = json_decode(@file_get_contents($credentialsPath), true);
+            if (! empty($json['project_id'])) {
+                return $json['project_id'];
+            }
+        }
+
+        $configured = config('services.firebase.project_id');
+        if (! empty($configured) && $configured !== 'dating-app-firebase') {
+            return $configured;
+        }
+
+        return 'desi-saheli';
     }
 
     /**
