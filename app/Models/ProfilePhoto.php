@@ -36,9 +36,20 @@ class ProfilePhoto extends Model
     public function getFullUrlAttribute(): string
     {
         if ($this->url) {
-            return $this->url;
+            if (str_starts_with($this->url, 'http://') || str_starts_with($this->url, 'https://')) {
+                return $this->url;
+            }
+            return url($this->url);
         }
 
-        return Storage::disk('public')->url($this->path);
+        if ($this->path) {
+            $storageUrl = Storage::disk('public')->url($this->path);
+            if (str_starts_with($storageUrl, 'http://') || str_starts_with($storageUrl, 'https://')) {
+                return $storageUrl;
+            }
+            return url($storageUrl);
+        }
+
+        return '';
     }
 }
